@@ -34,7 +34,7 @@ export class IngresoPage implements OnInit {
       this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
         if (res == '1') {
-          this.router.navigate(['/tabs/tab1']);
+          this.router.navigate(['/tabs/tab1', this.correo]);
         } else {
           const alert = await this.alertCtrl.create({
             header: 'Alerta',

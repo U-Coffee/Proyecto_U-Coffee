@@ -1,39 +1,42 @@
 <ion-header>
   <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="primary">
+<ion-content color="tertiary">
   <div class="content">
     <form (ngSubmit)="logForm()">
       <ion-card>
         <ion-input required placeholder="Número de documento" [(ngModel)]="ndoc" type="nuumeric" name="ndoc">
         </ion-input>
       </ion-card>
-      
+
       <ion-card>
         <ion-input required placeholder="Nombre(s)" [(ngModel)]="nombre" type="text" name="nombre"></ion-input>
       </ion-card>
-      
+
       <ion-card>
         <ion-input required placeholder="Apellido(s)" [(ngModel)]="apellido" type="text" name="apellido"></ion-input>
       </ion-card>
-      
+
       <ion-card>
         <ion-input required placeholder="Correo" [(ngModel)]="correo" type="text" name="correo"></ion-input>
       </ion-card>
-      
+
       <ion-card>
         <ion-input required placeholder="Contraseña" [(ngModel)]="contra" type="password" name="contra"></ion-input>
       </ion-card>
-      
+
       <ion-card>
         <ion-input required placeholder="Confirmar contraseña" [(ngModel)]="confContra" type="password"
           name="confContra">
         </ion-input>
       </ion-card>
-      
+
       <ion-button type="submit" color="secondary" expand="block">Enviar</ion-button>
     </form>
   </div>

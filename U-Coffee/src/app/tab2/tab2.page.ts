@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +11,41 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  table = "product";
+  info: any;
+  envPro = [];
+  varUser ="";
+
+  constructor(
+    public http: HttpClient,
+    public aletCtrl: AlertController,
+    public router: Router,
+    public actRouter: ActivatedRoute
+  ) { }
+
+  async loadInfo() {
+    const datosDB = {
+      "table": this.table
+    };
+    this.http.post('http://localhost/u-coffee/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(async res => {
+      this.info = res;
+      console.log(this.info);
+    });
+  }
+
+  add(codigo){
+
+    this.envPro.push(codigo);
+
+    console.log(this.envPro);
+  }
+
+  async enviar(){
+
+  }
+
+  ngOnInit() {
+    this.loadInfo();
+  }
 
 }

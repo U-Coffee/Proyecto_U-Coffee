@@ -1,11 +1,32 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-title>
-      Tab 2
+      Menú
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" color="tertiary">
+  <ion-list *ngFor="let list of info">
 
+    <ion-item>
+      <img src="assets/img/{{list.img}}"> &nbsp;&nbsp;
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col> <b>{{list.nombre}}</b></ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="4">${{list.valor}} </ion-col>
+          <ion-col>
+            <ion-button color="secondary" (click)="add(list.codigo)">
+              <ion-icon name="cart" color="light"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button color="tertiary" (click)="enviar()">Confirmar pedido</ion-button>
 </ion-content>
