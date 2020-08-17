@@ -7,13 +7,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" color="tertiary">
-
-  <ion-title>Bienvenido {{varUser}} </ion-title>
-
-<div class="no-info" >
-  <img src="/assets/img/triste.png">
-  <p>No has relizado pedidos aún</p>
-  <ion-button [routerLink]="['/tabs/tab2']" color="secondary">Realizar pedido</ion-button>
-</div>
+  <ion-label *ngFor="let info of datos">
+    <ion-title>Bienvenido <b>{{info.nombre}} {{info.apellido}}</b> </ion-title>
+  </ion-label>
+  <div class="no-info">
+    <img src="/assets/img/triste.png">
+    <p>No has relizado pedidos aún</p>
+    <ion-button [routerLink]="['/tabs/tab2']" color="secondary">Realizar pedido</ion-button>
+  </div>
 
 </ion-content>

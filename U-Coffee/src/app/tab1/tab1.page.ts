@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
@@ -8,29 +8,29 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit{
 
   constructor(
     public actRouter: ActivatedRoute,
-    public http: HttpClient, 
+    public http: HttpClient,
     public router: Router,
     public alertCtrl: AlertController
-  ) {}
-  varUser = "";
-  datos:any ="";
+  ) { }
+  varUser:any ="";
+  datos: any ;
 
-  async loadUser(){
+  async loadUser() {
     const datosDB = {
-      "correo" : this.varUser
+      "mail": this.varUser
     };
-    this.http.post('http://localhost/u-coffee/user.php',JSON.stringify(datosDB)).subscribe(async res =>{
+    this.http.post('http://localhost/u-coffee/user.php', JSON.stringify(datosDB)).subscribe( async res => {
       this.datos = res;
-      console.log(res);
+      console.log(this.datos);
     });
   }
-  ngOnInit(){
-    this.loadUser();
+  ngOnInit() {
     this.varUser = this.actRouter.snapshot.paramMap.get('user');
+    this.loadUser();
   }
 
 }

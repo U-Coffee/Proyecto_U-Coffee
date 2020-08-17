@@ -1,9 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>pedido</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmar pedido</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content color="tertiary">
+  <ion-card>
+    <ion-card-title class="ion-text-center">Resumen del pedido</ion-card-title>
+    <ion-grid>
+      <ion-row >
+        <ion-col>
+          <ion-item *ngFor="let a of arrayCod">
+            {{a}}
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item *ngFor="let b of arrayPre">
+            {{b}}
+          </ion-item>
+        </ion-col>
+        <ion-col >
+          <ion-item *ngFor="let c of arrayCod">
+            <ion-button color="danger" (click)="borrar(c)">
+              <ion-icon name="close-circle" color="light"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card class="ion-margin-top">
+    <ion-item>
+      <b>TOTAL:</b>
+      <ion-label class="ion-text-center">{{suma}}</ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-button (click)="envPedido()" color="secondary" id="pedir">¡Pedir!</ion-button>
 </ion-content>

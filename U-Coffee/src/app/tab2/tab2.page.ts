@@ -9,16 +9,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
   table = "product";
   info: any;
   envPro = [];
-  varUser ="";
+  varUser = "";
+  envPre = [];
+  // suma: any = 0;
 
   constructor(
     public http: HttpClient,
-    public aletCtrl: AlertController,
+    public alertCtrl: AlertController,
     public router: Router,
     public actRouter: ActivatedRoute
   ) { }
@@ -33,18 +35,38 @@ export class Tab2Page {
     });
   }
 
-  add(codigo){
+  add(codigo, precio) {
 
+    this.envPre.push(precio);
+    //this.suma=this.envPre.reduce((a,b) => a - (-b) , 0)
+    console.log(this.envPre);
     this.envPro.push(codigo);
 
     console.log(this.envPro);
+    //console.log(this.suma);
+
   }
 
-  async enviar(){
+  async enviar() {
+    if (this.envPro.length == 0) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        subHeader: 'No has pedido nada!',
+        message: 'Porfavor selecciona alguno de nuestros productos para continuar',
+        buttons: ['OK']
+      });
 
+      await alert.present();
+    } else {
+      let listCod = this.envPro.toString();
+      let listPre = this.envPre.toString();
+      this.router.navigate(['/pedido', listCod, listPre/*, this.suma*/]);
+
+    }
   }
 
   ngOnInit() {
+
     this.loadInfo();
   }
 
