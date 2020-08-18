@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page implements OnInit {
 
   constructor(
     public actRouter: ActivatedRoute,
@@ -16,21 +16,73 @@ export class Tab1Page implements OnInit{
     public router: Router,
     public alertCtrl: AlertController
   ) { }
-  varUser:any ="";
-  datos: any ;
+  varUser: any = "";
+  datos: any;
+  titulo: any = "Ingreso";
+
+  correo = "";
+  contra = "";
+
+  async logIn() {
+    if ((this.correo == "") || (this.contra == "")) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        subHeader: 'Campos vacios',
+        message: 'Debe rellenar todos los campos',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    } else {
+      const datosDB = { "correo": this.correo, "contra": this.contra };
+      this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
+        console.log(res);
+        if (res == '1') {
+          this.varUser = this.correo;
+          if ((this.varUser != null) || (this.varUser = "")) {
+            document.getElementById("no-info").hidden = false;
+            document.getElementById("titulo").hidden = false;
+            document.getElementById("log-in").hidden = true;
+            document.getElementById("historial").hidden = true;
+            this.titulo = "Mis pedidos";
+            this.loadUser();
+            console.log(this.varUser);
+            this.router.navigate(['/tabs/tab2', this.varUser]);
+          }else{
+            document.getElementById("no-info").hidden = true;
+            document.getElementById("titulo").hidden = true;
+            document.getElementById("log-in").hidden = false;
+            document.getElementById("historial").hidden = true;
+            this.titulo = "Ingreso";
+          }
+        } else {
+          const alert = await this.alertCtrl.create({
+            header: 'Alerta',
+            subHeader: 'Error de ingreso',
+            message: 'El campo de correo y/o contraseña es incorrecto',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+        }
+      });
+    }
+  }
+
+  enviar(){
+    this.router.navigate(['/tabs/tab2', this.varUser]);
+  }
 
   async loadUser() {
     const datosDB = {
       "mail": this.varUser
     };
-    this.http.post('http://localhost/u-coffee/user.php', JSON.stringify(datosDB)).subscribe( async res => {
+    this.http.post('http://localhost/u-coffee/user.php', JSON.stringify(datosDB)).subscribe(async res => {
       this.datos = res;
       console.log(this.datos);
     });
   }
   ngOnInit() {
-    this.varUser = this.actRouter.snapshot.paramMap.get('user');
-    this.loadUser();
   }
 
 }

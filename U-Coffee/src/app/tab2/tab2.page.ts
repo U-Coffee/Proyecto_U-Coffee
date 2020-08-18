@@ -60,13 +60,13 @@ export class Tab2Page implements OnInit {
     } else {
       let listCod = this.envPro.toString();
       let listPre = this.envPre.toString();
-      this.router.navigate(['/pedido', listCod, listPre/*, this.suma*/]);
+      this.router.navigate(['/pedido', listCod, listPre, this.varUser]);
 
     }
   }
 
   ngOnInit() {
-
+    this.varUser = this.actRouter.snapshot.paramMap.get("user");
     this.loadInfo();
   }
 

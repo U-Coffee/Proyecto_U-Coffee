@@ -1,19 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
     <ion-title>
-      Mis pedidos
+      {{titulo}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="tertiary">
-  <ion-label *ngFor="let info of datos">
-    <ion-title>Bienvenido <b>{{info.nombre}} {{info.apellido}}</b> </ion-title>
-  </ion-label>
-  <div class="no-info">
+<ion-content color="tertiary">
+
+  <div class="content" id="log-in">
+    <form (ngSubmit)="logIn()">
+
+      <ion-card id="ingreso">
+        <ion-item>
+          <ion-input placeholder="Correo" [(ngModel)]="correo" expand="full" name="correo"></ion-input>
+        </ion-item>
+      </ion-card>
+      <br>
+      <ion-card id="ingreso">
+        <ion-item>
+          <ion-input placeholder="Contraseña" [(ngModel)]="contra" type="password" expand="full" name="contra">
+          </ion-input>
+        </ion-item>
+      </ion-card>
+      <br>
+      <ion-button type="submit" color="secondary" expand="block" id="ingreso">Ingresar</ion-button><br>
+      <ion-button color="secondary" expand="block" [routerLink]="['/registro']" id="ingreso">¡Regístrate!</ion-button>
+
+    </form>
+  </div>
+
+  <div id="titulo" hidden>
+    <ion-label *ngFor="let info of datos">
+      <ion-title>Bienvenido <b>{{info.nombre}} {{info.apellido}}</b> </ion-title>
+    </ion-label>
+  </div>
+
+  <div class="no-info" id="no-info" hidden>
     <img src="/assets/img/triste.png">
     <p>No has relizado pedidos aún</p>
-    <ion-button [routerLink]="['/tabs/tab2']" color="secondary">Realizar pedido</ion-button>
+    <ion-button (click)="enviar()" color="secondary">Realizar pedido</ion-button>
   </div>
+
+  <div id="historial" hidden>historial</div>
 
 </ion-content>

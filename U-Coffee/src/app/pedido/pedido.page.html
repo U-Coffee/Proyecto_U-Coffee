@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="secondary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-button slot="start" fill="clear" (click)="volver()" color="light">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
     <ion-title>Confirmar pedido</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,7 +11,7 @@
   <ion-card>
     <ion-card-title class="ion-text-center">Resumen del pedido</ion-card-title>
     <ion-grid>
-      <ion-row >
+      <ion-row>
         <ion-col>
           <ion-item *ngFor="let a of arrayCod">
             {{a}}
@@ -22,7 +22,7 @@
             {{b}}
           </ion-item>
         </ion-col>
-        <ion-col >
+        <ion-col>
           <ion-item *ngFor="let c of arrayCod">
             <ion-button color="danger" (click)="borrar(c)">
               <ion-icon name="close-circle" color="light"></ion-icon>

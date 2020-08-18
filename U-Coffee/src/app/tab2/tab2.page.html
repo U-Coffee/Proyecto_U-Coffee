@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content color="tertiary">
-  <ion-card *ngFor="let list of info" >
+  <ion-card *ngFor="let list of info">
 
     <ion-item>
       <img src="assets/img/{{list.img}}"> &nbsp;&nbsp;
@@ -16,9 +16,9 @@
           <ion-col> <b>{{list.nombre}}</b></ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center">
-          <ion-col size="4">${{list.valor}} </ion-col>
-          <ion-col>
-            <ion-button color="secondary" (click)="add(list.nombre,list.valor)">
+          <ion-col >${{list.valor}} </ion-col>
+          <ion-col >
+            <ion-button id="carrito" color="secondary" (click)="add(list.nombre,list.valor) ">
               <ion-icon name="cart" color="light"></ion-icon>
             </ion-button>
           </ion-col>
@@ -28,6 +28,7 @@
 
   </ion-card>
 
-  <ion-button color="secondary" (click)="enviar()">Confirmar pedido</ion-button>
+  <ion-button color="secondary" (click)="enviar()" id="enviar">Confirmar pedido</ion-button>
   <br>
+
 </ion-content>
