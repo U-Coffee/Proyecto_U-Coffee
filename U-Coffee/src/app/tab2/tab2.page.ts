@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -22,7 +22,8 @@ export class Tab2Page implements OnInit {
     public http: HttpClient,
     public alertCtrl: AlertController,
     public router: Router,
-    public actRouter: ActivatedRoute
+    public actRouter: ActivatedRoute,
+    public navCtrl: NavController
   ) { }
 
   async loadInfo() {

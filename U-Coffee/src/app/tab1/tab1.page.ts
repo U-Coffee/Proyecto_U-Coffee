@@ -59,7 +59,7 @@ export class Tab1Page implements OnInit {
           const alert = await this.alertCtrl.create({
             header: 'Alerta',
             subHeader: 'Error de ingreso',
-            message: 'El campo de correo y/o contraseña es incorrecto',
+            message: 'El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto',
             buttons: ['OK']
           });
 

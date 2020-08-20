@@ -22,6 +22,7 @@ export class PedidoPage implements OnInit {
   varTotal: any = "";
   arrayCod = [];
   arrayPre = [];
+  newCod = [];
   datosPro: any;
   //datos = [];
 
@@ -41,6 +42,7 @@ export class PedidoPage implements OnInit {
     this.index = this.arrayCod.indexOf(elemento);
 
     this.arrayCod.splice(this.index, 1);
+    this.newCod = this.arrayCod;
     this.arrayPre.splice(this.index, 1);
     this.suma = this.arrayPre.reduce((a, b) => a - (-b), 0);
 
@@ -77,6 +79,28 @@ export class PedidoPage implements OnInit {
 
   }
 
+  async envPedido() {
+    if (this.suma == 0) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        message: 'Has borrado todo tu pedido, vuelvo a nuestro menú y antójate de algo!',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    } else {
+        let desc = this.newCod.toString();
+      const datosDB = {
+        "ndoc" : this.varUser,
+        "desc" : desc,
+        "total" : this.suma
+      };
+
+      this.http.post('http://localhost/u-coffee/factura.php',JSON.stringify(datosDB)).subscribe(async res =>{
+        console.log(res);
+      });
+    }
+  }
   /*async pedirDatos(){
     this.arrayCod.forEach(element => {
       const datosDB = {
