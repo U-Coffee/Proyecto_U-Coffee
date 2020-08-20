@@ -75,7 +75,7 @@ export class RegistroPage implements OnInit {
                 buttons: ['OK']
               });
               await alert.present();
-              this.router.navigate(['/ingreso']);
+              this.router.navigate(['/taba/tab1']);
             } else {
               const alert = await this.alertCtrl.create({
                 header: 'Alerta',

@@ -42,6 +42,22 @@
     <ion-button (click)="enviar()" color="secondary">Realizar pedido</ion-button>
   </div>
 
-  <div id="historial" hidden>historial</div>
+  <div id="historial" hidden>
+
+    <ion-title>Resumen de tus últimos pedidos</ion-title>
+    <ion-card *ngFor="let info of varHistorial">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            {{info.descripcion}}
+          </ion-col>
+          <ion-col>
+            {{info.total}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+  </div>
 
 </ion-content>

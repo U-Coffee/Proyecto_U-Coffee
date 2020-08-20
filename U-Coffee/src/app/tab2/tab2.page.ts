@@ -62,6 +62,8 @@ export class Tab2Page implements OnInit {
       let listCod = this.envPro.toString();
       let listPre = this.envPre.toString();
       this.router.navigate(['/pedido', listCod, listPre, this.varUser]);
+      this.envPre.splice(0,this.envPre.length);
+      this.envPro.splice(0,this.envPro.length);
 
     }
   }

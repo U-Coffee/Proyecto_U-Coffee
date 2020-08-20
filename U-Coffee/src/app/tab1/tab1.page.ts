@@ -19,6 +19,7 @@ export class Tab1Page implements OnInit {
   varUser: any = "";
   datos: any;
   titulo: any = "Ingreso";
+  varHistorial:any = [];
 
   correo = "";
   contra = "";
@@ -39,13 +40,29 @@ export class Tab1Page implements OnInit {
         console.log(res);
         if (res == '1') {
           this.varUser = this.correo;
-          if ((this.varUser != null) || (this.varUser = "")) {
-            document.getElementById("no-info").hidden = false;
-            document.getElementById("titulo").hidden = false;
-            document.getElementById("log-in").hidden = true;
-            document.getElementById("historial").hidden = true;
+          if ((this.varUser != null) || (this.varUser != "")) {
             this.titulo = "Mis pedidos";
             this.loadUser();
+            //this.historial();
+
+            const datosDB = {
+              "user" : this.varUser
+            };
+            this.http.post('https://localhost/u-coffee/historial.php',JSON.stringify(datosDB)).subscribe(async res =>{
+              this.varHistorial = res
+              console.log(this.varHistorial);
+              if(this.varHistorial.lenght == 0){
+                document.getElementById("no-info").hidden = false;
+                document.getElementById("titulo").hidden = false;
+                document.getElementById("log-in").hidden = true;
+                document.getElementById("historial").hidden = true;
+              } else {
+                document.getElementById("no-info").hidden = true;
+                document.getElementById("titulo").hidden = false;
+                document.getElementById("log-in").hidden = true;
+                document.getElementById("historial").hidden = false;
+              }
+            });
             console.log(this.varUser);
             this.router.navigate(['/tabs/tab2', this.varUser]);
           }else{
@@ -69,6 +86,27 @@ export class Tab1Page implements OnInit {
     }
   }
 
+  /*async historial(){
+    const datosDB = {
+      "user" : this.varUser
+    };
+    this.http.post('https://localhost/u-coffee/historial.php',JSON.stringify(datosDB)).subscribe(async res =>{
+      this.varHistorial = res
+      console.log(this.varHistorial);
+      if(this.varHistorial.lenght == 0){
+        document.getElementById("no-info").hidden = false;
+        document.getElementById("titulo").hidden = false;
+        document.getElementById("log-in").hidden = true;
+        document.getElementById("historial").hidden = true;
+      } else {
+        document.getElementById("no-info").hidden = true;
+        document.getElementById("titulo").hidden = true;
+        document.getElementById("log-in").hidden = false;
+        document.getElementById("historial").hidden = false;
+      }
+    });
+  }*/
+
   enviar(){
     this.router.navigate(['/tabs/tab2', this.varUser]);
   }
@@ -83,6 +121,7 @@ export class Tab1Page implements OnInit {
     });
   }
   ngOnInit() {
+    
   }
 
 }

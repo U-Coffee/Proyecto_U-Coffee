@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pedido',
@@ -14,7 +14,8 @@ export class PedidoPage implements OnInit {
     public actRouter: ActivatedRoute,
     public http: HttpClient,
     public alertCtrl: AlertController,
-    public router: Router
+    public router: Router,
+    public navCtrl: NavController
   ) { }
   varUser: any = ""
   varCod: any = "";
@@ -42,7 +43,7 @@ export class PedidoPage implements OnInit {
     this.index = this.arrayCod.indexOf(elemento);
 
     this.arrayCod.splice(this.index, 1);
-    this.newCod = this.arrayCod;
+    
     this.arrayPre.splice(this.index, 1);
     this.suma = this.arrayPre.reduce((a, b) => a - (-b), 0);
 
@@ -70,6 +71,7 @@ export class PedidoPage implements OnInit {
           text: 'Si',
           handler: () => {
             this.router.navigate(['/tabs/tab2', this.varUser]);
+
           }
         }
       ]
@@ -80,24 +82,43 @@ export class PedidoPage implements OnInit {
   }
 
   async envPedido() {
-    if (this.suma == 0) {
+    if ((this.suma == 0) && (this.newCod.length == 0)) {
       const alert = await this.alertCtrl.create({
         header: 'Alerta',
-        message: 'Has borrado todo tu pedido, vuelvo a nuestro menú y antójate de algo!',
+        message: 'Has borrado todo tu pedido, vuelve a nuestro menú y antójate de algo!',
         buttons: ['OK']
       });
 
       await alert.present();
     } else {
-        let desc = this.newCod.toString();
+      this.newCod = this.arrayCod;
+      let desc = this.newCod.toString();
       const datosDB = {
-        "ndoc" : this.varUser,
-        "desc" : desc,
-        "total" : this.suma
+        "ndoc": this.varUser,
+        "desc": desc,
+        "total": this.suma
       };
 
-      this.http.post('http://localhost/u-coffee/factura.php',JSON.stringify(datosDB)).subscribe(async res =>{
+      this.http.post('http://localhost/u-coffee/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
+        if (res == 1) {
+          const alert = await this.alertCtrl.create({
+            header: '¡Éxito!',
+            message: 'Tu pedido ha sido registrado, espera la notificación y recógelo',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+          this.router.navigate(['/tabs/tab2', this.varUser]);
+        } else {
+          const alert = await this.alertCtrl.create({
+            header: 'Alerta',
+            message: 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+        }
       });
     }
   }
