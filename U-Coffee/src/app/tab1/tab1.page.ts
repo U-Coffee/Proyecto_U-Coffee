@@ -19,21 +19,32 @@ export class Tab1Page implements OnInit {
   varUser: any = "";
   datos: any;
   titulo: any = "Ingreso";
-  varHistorial:any = [];
+  varHistorial: any = [];
 
   correo = "";
   contra = "";
 
+  async alert(header,subHeader,message){
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subHeader,
+      message: subHeader,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  hidden(bool1,bool2,bool3,bool4){
+    document.getElementById("no-info").hidden = bool1;
+    document.getElementById("titulo").hidden = bool2;
+    document.getElementById("log-in").hidden = bool3;
+    document.getElementById("historial").hidden = bool4;
+  }
+
   async logIn() {
     if ((this.correo == "") || (this.contra == "")) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        subHeader: 'Campos vacios',
-        message: 'Debe rellenar todos los campos',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+      this.alert('Alerta','Campos vacios','Debe rellenar todos los campos');
     } else {
       const datosDB = { "correo": this.correo, "contra": this.contra };
       this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
@@ -46,68 +57,31 @@ export class Tab1Page implements OnInit {
             //this.historial();
 
             const datosDB = {
-              "user" : this.varUser
+              "user": this.varUser
             };
-            this.http.post('https://localhost/u-coffee/historial.php',JSON.stringify(datosDB)).subscribe(async res =>{
+            this.http.post('https://localhost/u-coffee/historial.php', JSON.stringify(datosDB)).subscribe(async res => {
               this.varHistorial = res
               console.log(this.varHistorial);
-              if(this.varHistorial.lenght == 0){
-                document.getElementById("no-info").hidden = false;
-                document.getElementById("titulo").hidden = false;
-                document.getElementById("log-in").hidden = true;
-                document.getElementById("historial").hidden = true;
+              if (this.varHistorial.lenght == 0) {
+                this.hidden(false,false,true,true);
               } else {
-                document.getElementById("no-info").hidden = true;
-                document.getElementById("titulo").hidden = false;
-                document.getElementById("log-in").hidden = true;
-                document.getElementById("historial").hidden = false;
+                this.hidden(true,false,true,false);
               }
             });
             console.log(this.varUser);
             this.router.navigate(['/tabs/tab2', this.varUser]);
-          }else{
-            document.getElementById("no-info").hidden = true;
-            document.getElementById("titulo").hidden = true;
-            document.getElementById("log-in").hidden = false;
-            document.getElementById("historial").hidden = true;
+          } else {
+            this.hidden(true,true,false,true);
             this.titulo = "Ingreso";
           }
         } else {
-          const alert = await this.alertCtrl.create({
-            header: 'Alerta',
-            subHeader: 'Error de ingreso',
-            message: 'El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto',
-            buttons: ['OK']
-          });
-
-          await alert.present();
+          this.alert('Alerta','Error de ingreso','El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto');
         }
       });
     }
   }
 
-  /*async historial(){
-    const datosDB = {
-      "user" : this.varUser
-    };
-    this.http.post('https://localhost/u-coffee/historial.php',JSON.stringify(datosDB)).subscribe(async res =>{
-      this.varHistorial = res
-      console.log(this.varHistorial);
-      if(this.varHistorial.lenght == 0){
-        document.getElementById("no-info").hidden = false;
-        document.getElementById("titulo").hidden = false;
-        document.getElementById("log-in").hidden = true;
-        document.getElementById("historial").hidden = true;
-      } else {
-        document.getElementById("no-info").hidden = true;
-        document.getElementById("titulo").hidden = true;
-        document.getElementById("log-in").hidden = false;
-        document.getElementById("historial").hidden = false;
-      }
-    });
-  }*/
-
-  enviar(){
+  enviar() {
     this.router.navigate(['/tabs/tab2', this.varUser]);
   }
 
@@ -121,7 +95,7 @@ export class Tab1Page implements OnInit {
     });
   }
   ngOnInit() {
-    
+
   }
 
 }

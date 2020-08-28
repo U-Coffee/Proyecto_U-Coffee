@@ -24,25 +24,27 @@ export class RegistroPage implements OnInit {
   contra = "";
   confContra = "";
 
+  async alert(header,subHeader,message){
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   async logForm() {
-    if ((this.ndoc == "") || (this.nombre == "") || (this.apellido == "") || (this.correo == "") || (this.contra == "") || (this.confContra == "")) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        subHeader: 'Campos vacios',
-        message: 'Debe rellenar todos los campos',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+    if ((this.ndoc == "") 
+        || (this.nombre == "") 
+        || (this.apellido == "") 
+        || (this.correo == "") 
+        || (this.contra == "") 
+        || (this.confContra == "")) {
+      this.alert('Alerta','Campos vacios','Debe rellenar todos los campos')
     } else if (this.contra != this.confContra) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        subHeader: 'Contraseña',
-        message: 'Los campos de las contraseña no coinciden',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+      this.alert('Alerta','Contraseña','Los campos de las contraseña no coinciden');
     } else {
       const datosDB_ = {
         "correo": this.correo
@@ -50,14 +52,7 @@ export class RegistroPage implements OnInit {
       this.http.post('https://localhost/u-coffee/validar.php', JSON.stringify(datosDB_)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
-          const alert = await this.alertCtrl.create({
-            header: 'Alerta',
-            subHeader: 'Ya existe',
-            message: 'El Correo ' + this.correo + ' ya se encuentra registrado',
-            buttons: ['OK']
-          });
-
-          await alert.present();
+          this.alert('Alerta','Ya existe','El Correo ' + this.correo + ' ya se encuentra registrado')
         } else {
           const datosDB = {
             "ndoc": this.ndoc,
@@ -69,21 +64,10 @@ export class RegistroPage implements OnInit {
           this.http.post('https://localhost/u-coffee/registro.php', JSON.stringify(datosDB)).subscribe(async res => {
             console.log(res);
             if (res == 1) {
-              const alert = await this.alertCtrl.create({
-                header: 'Hecho',
-                message: '¡Registro Exitoso!',
-                buttons: ['OK']
-              });
-              await alert.present();
+              this.alert('Hecho','','¡Registro Exitoso!')
               this.router.navigate(['/taba/tab1']);
             } else {
-              const alert = await this.alertCtrl.create({
-                header: 'Alerta',
-                subHeader: 'Error',
-                message: 'Los datos NO han sido registrados',
-                buttons: ['OK']
-              });
-              await alert.present();
+              this.alert('Alerta','Error','Los datos NO han sido registrados');
             }
           });
         }

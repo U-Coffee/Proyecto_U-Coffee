@@ -30,6 +30,16 @@ export class PedidoPage implements OnInit {
   suma: any = 0;
   index: any;
 
+  async alert(header,message){
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   inicio() {
     this.arrayCod = this.varCod.split(",");
     console.log(this.arrayCod);
@@ -47,13 +57,7 @@ export class PedidoPage implements OnInit {
     this.arrayPre.splice(this.index, 1);
     this.suma = this.arrayPre.reduce((a, b) => a - (-b), 0);
 
-    const alert = await this.alertCtrl.create({
-      header: 'Alerta',
-      message: 'Has borrado ' + elemento + ' de tu pedido',
-      buttons: ['OK']
-    });
-
-    await alert.present();
+    this.alert('Alerta','Has borrado ' + elemento + ' de tu pedido')
   }
 
   async volver() {
@@ -83,13 +87,7 @@ export class PedidoPage implements OnInit {
 
   async envPedido() {
     if ((this.suma == 0) && (this.newCod.length == 0)) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        message: 'Has borrado todo tu pedido, vuelve a nuestro menú y antójate de algo!',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+      this.alert('Alerta','Has borrado todo tu pedido, vuelve a nuestro menú y antójate de algo!')
     } else {
       this.newCod = this.arrayCod;
       let desc = this.newCod.toString();
@@ -102,38 +100,14 @@ export class PedidoPage implements OnInit {
       this.http.post('http://localhost/u-coffee/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
-          const alert = await this.alertCtrl.create({
-            header: '¡Éxito!',
-            message: 'Tu pedido ha sido registrado, espera la notificación y recógelo',
-            buttons: ['OK']
-          });
-
-          await alert.present();
+          this.alert('¡Éxito!','Tu pedido ha sido registrado, espera la notificación y recógelo')
           this.router.navigate(['/tabs/tab2', this.varUser]);
         } else {
-          const alert = await this.alertCtrl.create({
-            header: 'Alerta',
-            message: 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde',
-            buttons: ['OK']
-          });
-
-          await alert.present();
+          this.alert('Alert','Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
         }
       });
     }
   }
-  /*async pedirDatos(){
-    this.arrayCod.forEach(element => {
-      const datosDB = {
-        "codigo" : element
-      }
-      this.http.post('http://localhost/u-coffee/buscar_pro.php',JSON.stringify(datosDB)).subscribe(async res =>{
-        this.datosPro = res;
-        this.datos.concat(this.datosPro)
-        console.log(this.datos);
-      });
-    });
-  }*/
 
 
   ngOnInit() {
@@ -145,7 +119,6 @@ export class PedidoPage implements OnInit {
     console.log(this.varTotal);
     this.varUser = this.actRouter.snapshot.paramMap.get("user");
     this.inicio();
-    //this.pedirDatos();
   }
 
 }

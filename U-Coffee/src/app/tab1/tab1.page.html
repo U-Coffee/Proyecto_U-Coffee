@@ -1,3 +1,5 @@
+
+
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
     <ion-title>
@@ -43,16 +45,38 @@
   </div>
 
   <div id="historial" hidden>
-
+    <br><br>
     <ion-title>Resumen de tus últimos pedidos</ion-title>
+    <ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <b> Descripción</b>
+          </ion-col>
+          <ion-col>
+            <b>Total</b>
+          </ion-col>
+          <ion-col>
+            <b>Comprar</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
     <ion-card *ngFor="let info of varHistorial">
       <ion-grid>
         <ion-row>
-          <ion-col>
-            {{info.descripcion}}
+          <ion-col size="6">
+            <div id="des">
+              {{info.descripcion}}
+            </div>
           </ion-col>
           <ion-col>
             {{info.total}}
+          </ion-col>
+          <ion-col>
+            <ion-button id="carrito" color="secondary" (click)="add(info.description,info.total) ">
+              <ion-icon name="cart" color="light"></ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
