@@ -24,7 +24,7 @@ export class RegistroPage implements OnInit {
   contra = "";
   confContra = "";
 
-  async alert(header,subHeader,message){
+  async alert(header: string, subHeader: string, message: string) {
     const alert = await this.alertCtrl.create({
       header: header,
       subHeader: subHeader,
@@ -36,15 +36,15 @@ export class RegistroPage implements OnInit {
   }
 
   async logForm() {
-    if ((this.ndoc == "") 
-        || (this.nombre == "") 
-        || (this.apellido == "") 
-        || (this.correo == "") 
-        || (this.contra == "") 
-        || (this.confContra == "")) {
-      this.alert('Alerta','Campos vacios','Debe rellenar todos los campos')
+    if ((this.ndoc == "")
+      || (this.nombre == "")
+      || (this.apellido == "")
+      || (this.correo == "")
+      || (this.contra == "")
+      || (this.confContra == "")) {
+      this.alert('Alerta', 'Campos vacios', 'Debe rellenar todos los campos')
     } else if (this.contra != this.confContra) {
-      this.alert('Alerta','Contraseña','Los campos de las contraseña no coinciden');
+      this.alert('Alerta', 'Contraseña', 'Los campos de las contraseña no coinciden');
     } else {
       const datosDB_ = {
         "correo": this.correo
@@ -52,7 +52,7 @@ export class RegistroPage implements OnInit {
       this.http.post('https://localhost/u-coffee/validar.php', JSON.stringify(datosDB_)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
-          this.alert('Alerta','Ya existe','El Correo ' + this.correo + ' ya se encuentra registrado')
+          this.alert('Alerta', 'Ya existe', 'El Correo ' + this.correo + ' ya se encuentra registrado')
         } else {
           const datosDB = {
             "ndoc": this.ndoc,
@@ -64,10 +64,10 @@ export class RegistroPage implements OnInit {
           this.http.post('https://localhost/u-coffee/registro.php', JSON.stringify(datosDB)).subscribe(async res => {
             console.log(res);
             if (res == 1) {
-              this.alert('Hecho','','¡Registro Exitoso!')
+              this.alert('Hecho', '', '¡Registro Exitoso!')
               this.router.navigate(['/taba/tab1']);
             } else {
-              this.alert('Alerta','Error','Los datos NO han sido registrados');
+              this.alert('Alerta', 'Error', 'Los datos NO han sido registrados');
             }
           });
         }

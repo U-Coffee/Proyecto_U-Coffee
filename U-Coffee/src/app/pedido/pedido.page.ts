@@ -30,7 +30,7 @@ export class PedidoPage implements OnInit {
   suma: any = 0;
   index: any;
 
-  async alert(header,message){
+  async alert(header: string, message: string) {
     const alert = await this.alertCtrl.create({
       header: header,
       message: message,
@@ -53,11 +53,11 @@ export class PedidoPage implements OnInit {
     this.index = this.arrayCod.indexOf(elemento);
 
     this.arrayCod.splice(this.index, 1);
-    
+
     this.arrayPre.splice(this.index, 1);
     this.suma = this.arrayPre.reduce((a, b) => a - (-b), 0);
 
-    this.alert('Alerta','Has borrado ' + elemento + ' de tu pedido')
+    this.alert('Alerta', 'Has borrado ' + elemento + ' de tu pedido')
   }
 
   async volver() {
@@ -87,7 +87,7 @@ export class PedidoPage implements OnInit {
 
   async envPedido() {
     if ((this.suma == 0) && (this.newCod.length == 0)) {
-      this.alert('Alerta','Has borrado todo tu pedido, vuelve a nuestro menú y antójate de algo!')
+      this.alert('Alerta', 'Has borrado todo tu pedido, vuelve a nuestro menú y antójate de algo!')
     } else {
       this.newCod = this.arrayCod;
       let desc = this.newCod.toString();
@@ -100,10 +100,10 @@ export class PedidoPage implements OnInit {
       this.http.post('http://localhost/u-coffee/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
-          this.alert('¡Éxito!','Tu pedido ha sido registrado, espera la notificación y recógelo')
+          this.alert('¡Éxito!', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
           this.router.navigate(['/tabs/tab2', this.varUser]);
         } else {
-          this.alert('Alert','Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
+          this.alert('Alert', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
         }
       });
     }

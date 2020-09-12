@@ -19,16 +19,19 @@ export class IngresoPage implements OnInit {
   correo = "";
   contra = "";
 
+  async alert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   async logIn() {
     if ((this.correo == "") || (this.contra == "")) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        subHeader: 'Campos vacios',
-        message: 'Debe rellenar todos los campos',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+      this.alert('Alerta','Campos vacios','Debe rellenar todos los campos');
     } else {
       const datosDB = { "correo": this.correo, "contra": this.contra };
       this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
@@ -36,14 +39,7 @@ export class IngresoPage implements OnInit {
         if (res == '1') {
           this.router.navigate(['/tabs/tab1', this.correo]);
         } else {
-          const alert = await this.alertCtrl.create({
-            header: 'Alerta',
-            subHeader: 'Error de ingreso',
-            message: 'El campo de correo y/o contraseña es incorrecto',
-            buttons: ['OK']
-          });
-
-          await alert.present();
+          this.alert('Alerta','Error de ingreso','El campo de correo y/o contraseña es incorrecto')
         }
       });
     }

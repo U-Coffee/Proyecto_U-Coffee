@@ -36,7 +36,7 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  add(codigo, precio) {
+  add(codigo: any, precio: any) {
 
     this.envPre.push(precio);
     //this.suma=this.envPre.reduce((a,b) => a - (-b) , 0)

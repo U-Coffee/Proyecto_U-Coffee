@@ -24,18 +24,18 @@ export class Tab1Page implements OnInit {
   correo = "";
   contra = "";
 
-  async alert(header,subHeader,message){
+  async alert(header: string, subHeader: string, message: string) {
     const alert = await this.alertCtrl.create({
       header: header,
       subHeader: subHeader,
-      message: subHeader,
+      message: message,
       buttons: ['OK']
     });
 
     await alert.present();
   }
 
-  hidden(bool1,bool2,bool3,bool4){
+  hidden(bool1: boolean, bool2: boolean, bool3: boolean, bool4: boolean) {
     document.getElementById("no-info").hidden = bool1;
     document.getElementById("titulo").hidden = bool2;
     document.getElementById("log-in").hidden = bool3;
@@ -44,7 +44,7 @@ export class Tab1Page implements OnInit {
 
   async logIn() {
     if ((this.correo == "") || (this.contra == "")) {
-      this.alert('Alerta','Campos vacios','Debe rellenar todos los campos');
+      this.alert('Alerta', 'Campos vacios', 'Debe rellenar todos los campos');
     } else {
       const datosDB = { "correo": this.correo, "contra": this.contra };
       this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
@@ -63,19 +63,19 @@ export class Tab1Page implements OnInit {
               this.varHistorial = res
               console.log(this.varHistorial);
               if (this.varHistorial.lenght == 0) {
-                this.hidden(false,false,true,true);
+                this.hidden(false, false, true, true);
               } else {
-                this.hidden(true,false,true,false);
+                this.hidden(true, false, true, false);
               }
             });
             console.log(this.varUser);
             this.router.navigate(['/tabs/tab2', this.varUser]);
           } else {
-            this.hidden(true,true,false,true);
+            this.hidden(true, true, false, true);
             this.titulo = "Ingreso";
           }
         } else {
-          this.alert('Alerta','Error de ingreso','El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto');
+          this.alert('Alerta', 'Error de ingreso', 'El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto');
         }
       });
     }
