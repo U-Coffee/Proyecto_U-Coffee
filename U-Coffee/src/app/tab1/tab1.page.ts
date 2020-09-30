@@ -16,14 +16,14 @@ export class Tab1Page implements OnInit {
     public router: Router,
     public alertCtrl: AlertController
   ) { }
-  varUser: any = "";
+  varUser = localStorage.getItem("user")
   datos: any;
   titulo: any = "Ingreso";
   varHistorial: any = [];
-
-  correo = "";
+  ndoc = "";
   contra = "";
 
+  //Funcion de las alertas
   async alert(header: string, subHeader: string, message: string) {
     const alert = await this.alertCtrl.create({
       header: header,
@@ -35,57 +35,89 @@ export class Tab1Page implements OnInit {
     await alert.present();
   }
 
-  hidden(bool1: boolean, bool2: boolean, bool3: boolean, bool4: boolean) {
-    document.getElementById("no-info").hidden = bool1;
-    document.getElementById("titulo").hidden = bool2;
-    document.getElementById("log-in").hidden = bool3;
-    document.getElementById("historial").hidden = bool4;
+  //Funcion par amostrar o esconder informacion
+  hidden(noInfo: boolean, titulo: boolean, logIn: boolean, historial: boolean) {
+    document.getElementById("no-info").hidden = noInfo;
+    document.getElementById("titulo").hidden = titulo;
+    document.getElementById("log-in").hidden = logIn;
+    document.getElementById("historial").hidden = historial;
   }
 
-  async logIn() {
-    if ((this.correo == "") || (this.contra == "")) {
-      this.alert('Alerta', 'Campos vacios', 'Debe rellenar todos los campos');
-    } else {
-      const datosDB = { "correo": this.correo, "contra": this.contra };
-      this.http.post('https://localhost/u-coffee/ingreso.php', JSON.stringify(datosDB)).subscribe(async res => {
-        console.log(res);
-        if (res == '1') {
-          this.varUser = this.correo;
-          if ((this.varUser != null) || (this.varUser != "")) {
-            this.titulo = "Mis pedidos";
-            this.loadUser();
-            //this.historial();
+  //funcion que muestra el historial de pedidos
+  showHystorial() {
+    this.varUser = localStorage.getItem("user")
+    this.titulo = "Mis pedidos"; //cambia el titulo de la pagina
+    this.loadUser();  //llama a la funcion para cargar el nombre y apellido del usuario
 
-            const datosDB = {
-              "user": this.varUser
-            };
-            this.http.post('https://localhost/u-coffee/historial.php', JSON.stringify(datosDB)).subscribe(async res => {
-              this.varHistorial = res
-              console.log(this.varHistorial);
-              if (this.varHistorial.lenght == 0) {
-                this.hidden(false, false, true, true);
-              } else {
-                this.hidden(true, false, true, false);
-              }
-            });
+    const datosDB = {
+      "user": this.varUser //carga la info del usuario que eseta guardada en el localStorage
+    };
+    this.http.post('https://localhost/u-coffee/historial.php', //valida que tenga pedidos realizados 
+      JSON.stringify(datosDB)).subscribe(async res => {
+        this.varHistorial = res
+        console.log(this.varHistorial);
+        if (this.varHistorial == 0) { //valida que tengo almenos un pedido realizado
+          this.hidden(false, false, true, true); //muestra un mensaje que no ha realizado pedidos
+          console.log("no hay histoial")
+        } else {
+          this.hidden(true, false, true, false); // muestra los pedidos realizados
+        }
+      });
+  }
+
+  //funcion de la validacion del log in
+  logInValidation() {
+    const datosDB = { //se crea un objeto par enviar al PHP
+      "correo": this.ndoc, // numero de documento
+      "contra": this.contra // contraseña
+    };
+    this.http.post('https://localhost/u-coffee/ingreso.php', //valida la infomacion con la base de datos
+      JSON.stringify(datosDB)).subscribe(async res => {
+        console.log(res);
+        if (res == '1') { //valida que la informacion ingresada coincida con la de la base de datos
+          localStorage.setItem("user", this.ndoc) // se guarda la info del usuarioo en el localStorage
+          if ((this.varUser != null) || (this.varUser != "")) { // valida que la informacion del usuario no este vacia
+            this.showHystorial() // llama la funcion para mostrar el historial 
             console.log(this.varUser);
-            this.router.navigate(['/tabs/tab2', this.varUser]);
-          } else {
+            //this.router.navigate(['/tabs/tab2', this.varUser]); // envia la infoamcion del usuario a la pestaña del menu
+          } else { // si varUser esta vacio muestra la pagina de ingreso
             this.hidden(true, true, false, true);
             this.titulo = "Ingreso";
           }
-        } else {
-          this.alert('Alerta', 'Error de ingreso', 'El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto');
+        } else { // si la informacion ingresada no coincide muestra un alerta 
+          this.alert(
+            'Alerta',
+            'Error de ingreso',
+            'El campo de <strong>Documento</strong> y/o <strong>Contraseña</strong> es incorrecto');
         }
       });
+  }
+
+  //Funcion de ingreso 
+  async logIn() {
+    if ((this.ndoc == "") || (this.contra == "")) { //Valida si los campos estan vacios 
+      this.alert('Alerta', 'Campos vacios', 'Debe rellenar todos los campos');
+    } else {
+      this.logInValidation() //llama la funcion para validar la informacion ingresada
+    }
+  }
+  //Funcion que envia la info del user a la pestaña del menu 
+  enviar() {
+    this.router.navigate(['/tabs/tab2']);
+  }
+
+  //Funcion que valida su hay informacion del usuario guardada
+  varUserInfo() {
+    if (this.varUser == null || this.varUser == "") {
+      this.titulo = "Ingreso";
+      this.hidden(true, false, false, true);
+    } else {
+      this.showHystorial()
     }
   }
 
-  enviar() {
-    this.router.navigate(['/tabs/tab2', this.varUser]);
-  }
-
-  async loadUser() {
+  //Funcion que carga la informacion del usuario
+  loadUser() {
     const datosDB = {
       "mail": this.varUser
     };
@@ -94,8 +126,56 @@ export class Tab1Page implements OnInit {
       console.log(this.datos);
     });
   }
-  ngOnInit() {
 
+  //funcion para realizar pedido desde el historial
+  async add(description, total) {
+    
+    const alert_ = await this.alertCtrl.create({ //alert para informar sobre el pedido que se está realizando
+
+      header: 'Confirmación de pedido',
+      message: 'Vas a realizar el siguiente pedido:<br><br>' + description + '<br><br><b>Total: $' + total,
+      buttons: [
+        {
+          //se cancela el pedido
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          //se realiza el pedido
+          text: 'Pedir',
+          handler: () => {
+
+            const datosDB = {
+              "ndoc": this.varUser, //datos de lusuario tomados del localStorage
+              "desc": description, //descripcion del pedido
+              "total": total //total del pedido
+            };
+
+            this.http.post(
+              'http://localhost/u-coffee/factura.php', //se envian los datos al PHP
+              JSON.stringify(datosDB)).subscribe(async res => {
+              console.log(res);
+              if (res == 1) {
+                //Registro del pedido exitoso
+                this.alert('¡Éxito!','', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
+                this.router.navigate(['/tabs/tab2']);
+              } else {
+                //Registro del pedido sin exito
+                this.alert('Alert','', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
+              }
+            });
+
+          }
+        }
+      ]
+    })
+
+    await alert_.present();
+  }
+  ngOnInit() {
+    this.varUserInfo()
   }
 
 }

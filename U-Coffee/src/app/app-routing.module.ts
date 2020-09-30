@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./ingreso/ingreso.module').then( m => m.IngresoPageModule)
   },
   {
-    path: 'pedido/:codigo/:precio/:user'/*/:total'*/, //borrar un acomilla
+    path: 'pedido/:codigo/:precio',
     loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   }
 ];

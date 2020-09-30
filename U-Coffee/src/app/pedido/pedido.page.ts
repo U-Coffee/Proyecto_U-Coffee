@@ -17,10 +17,9 @@ export class PedidoPage implements OnInit {
     public router: Router,
     public navCtrl: NavController
   ) { }
-  varUser: any = ""
+  varUser: any = localStorage.getItem("user")
   varCod: any = "";
   varPre: any = "";
-  varTotal: any = "";
   arrayCod = [];
   arrayPre = [];
   newCod = [];
@@ -74,7 +73,7 @@ export class PedidoPage implements OnInit {
         }, {
           text: 'Si',
           handler: () => {
-            this.router.navigate(['/tabs/tab2', this.varUser]);
+            this.router.navigate(['/tabs/tab2']);
 
           }
         }
@@ -101,7 +100,7 @@ export class PedidoPage implements OnInit {
         console.log(res);
         if (res == 1) {
           this.alert('¡Éxito!', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
-          this.router.navigate(['/tabs/tab2', this.varUser]);
+          this.router.navigate(['/tabs/tab2']);
         } else {
           this.alert('Alert', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
         }
@@ -115,9 +114,6 @@ export class PedidoPage implements OnInit {
     console.log(this.varCod);
     this.varPre = this.actRouter.snapshot.paramMap.get('precio');
     console.log(this.varPre);
-    this.varTotal = this.actRouter.snapshot.paramMap.get('total');
-    console.log(this.varTotal);
-    this.varUser = this.actRouter.snapshot.paramMap.get("user");
     this.inicio();
   }
 

@@ -14,9 +14,8 @@ export class Tab2Page implements OnInit {
   table = "product";
   info: any;
   envPro = [];
-  varUser = "";
   envPre = [];
-  // suma: any = 0;
+  varUser = localStorage.getItem("user");
 
   constructor(
     public http: HttpClient,
@@ -25,6 +24,18 @@ export class Tab2Page implements OnInit {
     public actRouter: ActivatedRoute,
     public navCtrl: NavController
   ) { }
+
+  //Funcion de las alertas
+  async alert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
   async loadInfo() {
     const datosDB = {
@@ -39,37 +50,36 @@ export class Tab2Page implements OnInit {
   add(codigo: any, precio: any) {
 
     this.envPre.push(precio);
-    //this.suma=this.envPre.reduce((a,b) => a - (-b) , 0)
     console.log(this.envPre);
     this.envPro.push(codigo);
 
     console.log(this.envPro);
-    //console.log(this.suma);
-
   }
 
-  async enviar() {
+  infoValidation(){
     if (this.envPro.length == 0) {
-      const alert = await this.alertCtrl.create({
-        header: 'Alerta',
-        subHeader: 'No has pedido nada!',
-        message: 'Porfavor selecciona alguno de nuestros productos para continuar',
-        buttons: ['OK']
-      });
-
-      await alert.present();
+      this.alert('Alerta','No has pedido nada!','Porfavor selecciona alguno de nuestros productos para continuar')
     } else {
       let listCod = this.envPro.toString();
       let listPre = this.envPre.toString();
-      this.router.navigate(['/pedido', listCod, listPre, this.varUser]);
+      this.router.navigate(['/pedido', listCod, listPre]);
       this.envPre.splice(0,this.envPre.length);
       this.envPro.splice(0,this.envPro.length);
 
     }
   }
 
+  async enviar() {
+    this.varUser = localStorage.getItem("user");
+    if(this.varUser == null || this.varUser ==""){
+      this.alert("Inicia Sesión","","Debes iniciar sesión para porder ralizar un pedido")
+    } else {
+      this.infoValidation()
+    }
+    
+  }
+
   ngOnInit() {
-    this.varUser = this.actRouter.snapshot.paramMap.get("user");
     this.loadInfo();
   }
 

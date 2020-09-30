@@ -15,7 +15,7 @@
 
       <ion-card id="ingreso">
         <ion-item>
-          <ion-input placeholder="Número de Documento" [(ngModel)]="correo" expand="full" name="correo"></ion-input>
+          <ion-input placeholder="Número de Documento" [(ngModel)]="ndoc" expand="full" name="correo"></ion-input>
         </ion-item>
       </ion-card>
       <br>
@@ -74,7 +74,7 @@
             {{info.total}}
           </ion-col>
           <ion-col>
-            <ion-button id="carrito" color="secondary" (click)="add(info.description,info.total) ">
+            <ion-button id="carrito" color="secondary" (click)="add(info.descripcion,info.total) ">
               <ion-icon name="cart" color="light"></ion-icon>
             </ion-button>
           </ion-col>
