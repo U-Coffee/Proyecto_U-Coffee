@@ -1,11 +1,23 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-title>
-      Tab 3
+      Pedidos sin recoger
     </ion-title>
+    <ion-button slot="end" fill="clear" (click)="logOut()" >
+      <ion-icon name="log-out"  color="light"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content color="tertiary">
+  <div class="no-login" id="no-login" hidden>
+    <img src="/assets/img/triste.png">
+    <p>No has iniciado sesión</p>
+    <ion-button (click)="logIn()" color="secondary">Iniciar sesión</ion-button>
+  </div>
 
+  <div class="no-pedido" id="no-pedido" hidden>
+    <img src="/assets/img/check.png">
+    <p>No tienes pedidos pendientes</p>
+  </div>
 </ion-content>

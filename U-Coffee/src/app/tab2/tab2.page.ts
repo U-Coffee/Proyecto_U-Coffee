@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -20,9 +20,7 @@ export class Tab2Page implements OnInit {
   constructor(
     public http: HttpClient,
     public alertCtrl: AlertController,
-    public router: Router,
-    public actRouter: ActivatedRoute,
-    public navCtrl: NavController
+    public router: Router
   ) { }
 
   //Funcion de las alertas
@@ -56,27 +54,54 @@ export class Tab2Page implements OnInit {
     console.log(this.envPro);
   }
 
-  infoValidation(){
+  infoValidation() {
     if (this.envPro.length == 0) {
-      this.alert('Alerta','No has pedido nada!','Porfavor selecciona alguno de nuestros productos para continuar')
+      this.alert('Alerta', 'No has pedido nada!', 'Porfavor selecciona alguno de nuestros productos para continuar')
     } else {
       let listCod = this.envPro.toString();
       let listPre = this.envPre.toString();
       this.router.navigate(['/pedido', listCod, listPre]);
-      this.envPre.splice(0,this.envPre.length);
-      this.envPro.splice(0,this.envPro.length);
+      this.envPre.splice(0, this.envPre.length);
+      this.envPro.splice(0, this.envPro.length);
 
     }
   }
 
   async enviar() {
     this.varUser = localStorage.getItem("user");
-    if(this.varUser == null || this.varUser ==""){
-      this.alert("Inicia Sesión","","Debes iniciar sesión para porder ralizar un pedido")
+    if (this.varUser == null || this.varUser == "") {
+      this.alert("Inicia Sesión", "", "Debes iniciar sesión para porder ralizar un pedido")
     } else {
       this.infoValidation()
     }
-    
+
+  }
+
+  //Funcion para cerrar sesion
+  async logOut() {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Alerta',
+      message: '¿Deseas cerrar la sesión actual?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Si',
+          handler: () => {
+            localStorage.clear(); //se limpia el localStorage 
+            location.reload()
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   ngOnInit() {

@@ -36,11 +36,12 @@ export class Tab1Page implements OnInit {
   }
 
   //Funcion par amostrar o esconder informacion
-  hidden(noInfo: boolean, titulo: boolean, logIn: boolean, historial: boolean) {
+  hidden(noInfo: boolean, titulo: boolean, logIn: boolean, historial: boolean, logOut: boolean) {
     document.getElementById("no-info").hidden = noInfo;
     document.getElementById("titulo").hidden = titulo;
     document.getElementById("log-in").hidden = logIn;
     document.getElementById("historial").hidden = historial;
+    document.getElementById("log-out").hidden = logOut;
   }
 
   //funcion que muestra el historial de pedidos
@@ -57,10 +58,9 @@ export class Tab1Page implements OnInit {
         this.varHistorial = res
         console.log(this.varHistorial);
         if (this.varHistorial == 0) { //valida que tengo almenos un pedido realizado
-          this.hidden(false, false, true, true); //muestra un mensaje que no ha realizado pedidos
-          console.log("no hay histoial")
+          this.hidden(false, false, true, true, false); //muestra un mensaje que no ha realizado pedidos
         } else {
-          this.hidden(true, false, true, false); // muestra los pedidos realizados
+          this.hidden(true, false, true, false, false); // muestra los pedidos realizados
         }
       });
   }
@@ -79,9 +79,10 @@ export class Tab1Page implements OnInit {
           if ((this.varUser != null) || (this.varUser != "")) { // valida que la informacion del usuario no este vacia
             this.showHystorial() // llama la funcion para mostrar el historial 
             console.log(this.varUser);
+            location.reload();
             //this.router.navigate(['/tabs/tab2', this.varUser]); // envia la infoamcion del usuario a la pestaña del menu
           } else { // si varUser esta vacio muestra la pagina de ingreso
-            this.hidden(true, true, false, true);
+            this.hidden(true, true, false, true, true);
             this.titulo = "Ingreso";
           }
         } else { // si la informacion ingresada no coincide muestra un alerta 
@@ -110,7 +111,7 @@ export class Tab1Page implements OnInit {
   varUserInfo() {
     if (this.varUser == null || this.varUser == "") {
       this.titulo = "Ingreso";
-      this.hidden(true, false, false, true);
+      this.hidden(true, false, false, true, true);
     } else {
       this.showHystorial()
     }
@@ -129,7 +130,7 @@ export class Tab1Page implements OnInit {
 
   //funcion para realizar pedido desde el historial
   async add(description, total) {
-    
+
     const alert_ = await this.alertCtrl.create({ //alert para informar sobre el pedido que se está realizando
 
       header: 'Confirmación de pedido',
@@ -156,16 +157,16 @@ export class Tab1Page implements OnInit {
             this.http.post(
               'http://localhost/u-coffee/factura.php', //se envian los datos al PHP
               JSON.stringify(datosDB)).subscribe(async res => {
-              console.log(res);
-              if (res == 1) {
-                //Registro del pedido exitoso
-                this.alert('¡Éxito!','', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
-                this.router.navigate(['/tabs/tab2']);
-              } else {
-                //Registro del pedido sin exito
-                this.alert('Alert','', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
-              }
-            });
+                console.log(res);
+                if (res == 1) {
+                  //Registro del pedido exitoso
+                  this.alert('¡Éxito!', '', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
+                  this.router.navigate(['/tabs/tab2']);
+                } else {
+                  //Registro del pedido sin exito
+                  this.alert('Alerta', '', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
+                }
+              });
 
           }
         }
@@ -174,6 +175,36 @@ export class Tab1Page implements OnInit {
 
     await alert_.present();
   }
+
+  //Funcion para cerrar sesion
+  async logOut() {
+
+    if ((this.varUser != '') || (this.varUser != null)) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alerta',
+        message: '¿Deseas cerrar la sesión actual?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Si',
+            handler: () => {
+              localStorage.clear(); //se limpia el localStorage 
+              location.reload();
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+  }
+
   ngOnInit() {
     this.varUserInfo()
   }

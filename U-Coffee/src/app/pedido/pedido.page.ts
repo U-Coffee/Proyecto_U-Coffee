@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pedido',
@@ -14,8 +14,7 @@ export class PedidoPage implements OnInit {
     public actRouter: ActivatedRoute,
     public http: HttpClient,
     public alertCtrl: AlertController,
-    public router: Router,
-    public navCtrl: NavController
+    public router: Router
   ) { }
   varUser: any = localStorage.getItem("user")
   varCod: any = "";
