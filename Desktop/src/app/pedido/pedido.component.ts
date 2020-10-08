@@ -17,12 +17,16 @@ export class PedidoComponent implements OnInit {
   varDesc: any = ""
   varTotal: any = ""
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.varName = this.actRouter.snapshot.paramMap.get('name')
+    console.log(this.varName)
     this.varLastname = this.actRouter.snapshot.paramMap.get('lastname')
+    console.log(this.varLastname)
     this.varDesc = this.actRouter.snapshot.paramMap.get('desc')
+    console.log(this.varDesc)
     this.varTotal = this.actRouter.snapshot.paramMap.get('total')
+    console.log(this.varTotal)
 
   }
 

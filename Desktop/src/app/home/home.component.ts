@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor (
-    private http : HttpClient
+    private http : HttpClient,
+    private router : Router
   )
   {}
 
   varData: any = ""
+  arrayDesc = []
 
   logInfo(){
     const datosDB = {
@@ -26,10 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   sendInfo(name: string, lastname: string, description: string, total:number){
-    
+    this.router.navigate(['/pedido',name,lastname,description,total]);
   }
-
-  title = 'y';
 
   ngOnInit() {
     this.logInfo()

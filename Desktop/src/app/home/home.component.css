@@ -1,38 +1,27 @@
-.toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #ff8533;
-    color: white;
-    font-weight: 600;
+*{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.content {
+  display: flex;
+  margin-top: 10px;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  max-width: 1000px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ff8533;
+  font-size: medium;  
+}
+
+table{
+  color:white;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
   }
-  
-  .toolbar img {
-    margin: 0 16px;
-  }
-  
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 90%;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ff8533;
-    
-  }
-  
-  table{
-    color:white;
-  }
-  
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
+}
