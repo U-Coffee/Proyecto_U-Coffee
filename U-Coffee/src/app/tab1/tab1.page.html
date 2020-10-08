@@ -49,7 +49,7 @@
 
   <div id="historial" hidden>
     <br><br>
-    <ion-title>Resumen de tus <br> últimos pedidos</ion-title>
+    <ion-title>Últimos pedidos</ion-title>
     <ion-card>
       <ion-grid>
         <ion-row>
@@ -74,7 +74,7 @@
             </div>
           </ion-col>
           <ion-col>
-            {{info.total}}
+            {{info.total | number}}
           </ion-col>
           <ion-col>
             <ion-button id="carrito" color="secondary" (click)="add(info.descripcion,info.total) ">
