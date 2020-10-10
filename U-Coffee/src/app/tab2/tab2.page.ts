@@ -16,6 +16,7 @@ export class Tab2Page implements OnInit {
   envPro = [];
   envPre = [];
   varUser = localStorage.getItem("user");
+  searchText = '';
 
   constructor(
     public http: HttpClient,
@@ -35,6 +36,7 @@ export class Tab2Page implements OnInit {
     await alert.present();
   }
 
+  //Cargar la informacion de los productos
   async loadInfo() {
     const datosDB = {
       "table": this.table
@@ -45,6 +47,7 @@ export class Tab2Page implements OnInit {
     });
   }
 
+  //generar un array con los productos seleccionados
   add(codigo: any, precio: any) {
 
     this.envPre.push(precio);
@@ -54,6 +57,7 @@ export class Tab2Page implements OnInit {
     console.log(this.envPro);
   }
 
+  //Validar que el array del pedido no está vacio
   infoValidation() {
     if (this.envPro.length == 0) {
       this.alert('Alerta', 'No has pedido nada!', 'Porfavor selecciona alguno de nuestros productos para continuar')
@@ -67,6 +71,7 @@ export class Tab2Page implements OnInit {
     }
   }
 
+  //funcion que valida que se ha iniciado sesion para poder realizar el pedido 
   async enviar() {
     this.varUser = localStorage.getItem("user");
     if (this.varUser == null || this.varUser == "") {
@@ -102,6 +107,12 @@ export class Tab2Page implements OnInit {
     });
 
     await alert.present();
+  }
+
+  buscar(event){
+    //console.log(event)
+    this.searchText = event.detail.value
+
   }
 
   ngOnInit() {

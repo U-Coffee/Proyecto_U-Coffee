@@ -74,11 +74,11 @@
             </div>
           </ion-col>
           <ion-col>
-            {{info.total | number}}
+            $ {{info.total | number}}
           </ion-col>
           <ion-col>
             <ion-button id="carrito" color="secondary" (click)="add(info.descripcion,info.total) ">
-              <ion-icon name="cart" color="light"></ion-icon>
+            <ion-icon name="cart" color="light"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>

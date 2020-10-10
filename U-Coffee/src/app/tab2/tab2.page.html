@@ -3,32 +3,34 @@
     <ion-title>
       Menú
     </ion-title>
-    <ion-button slot="end" fill="clear" (click)="logOut()" >
-      <ion-icon name="log-out"  color="light"></ion-icon>
+    <ion-button slot="end" fill="clear" (click)="logOut()">
+      <ion-icon name="log-out" color="light"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="tertiary">
-  <ion-card *ngFor="let list of info">
-
-    <ion-item>
-      <img src="assets/img/{{list.img}}"> &nbsp;&nbsp;
-      <ion-grid>
-        <ion-row class="ion-align-items-center">
-          <ion-col> <b>{{list.nombre}}</b></ion-col>
-        </ion-row>
-        <ion-row class="ion-align-items-center">
-          <ion-col >${{list.valor}} </ion-col>
-          <ion-col >
-            <ion-button id="carrito" color="secondary" (click)="add(list.nombre,list.valor) ">
-              <ion-icon name="cart" color="light"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-
+  <br>
+  <ion-searchbar animated color="secondary" placeholder="Buscar producto" (ionChange) ="buscar($event)"></ion-searchbar>
+  <ion-card *ngFor="let list of info | searchbar: searchText">
+    <ion-list >
+      <ion-item>
+        <img src="assets/img/{{list.img}}"> &nbsp;&nbsp;
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col> <b>{{list.nombre }}</b></ion-col>
+          </ion-row>
+          <ion-row class="ion-align-items-center">
+            <ion-col>$ {{list.valor | number}} </ion-col>
+            <ion-col>
+              <ion-button id="carrito" color="secondary" (click)="add(list.nombre,list.valor) ">
+                <ion-icon name="cart" color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
   </ion-card>
 
   <ion-button color="secondary" (click)="enviar()" id="enviar">Confirmar pedido</ion-button>
