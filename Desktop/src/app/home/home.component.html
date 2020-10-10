@@ -14,7 +14,7 @@
       <td> {{list.descripcion}} </td>
       <td> $ {{list.total | number}} </td>
       <td width="150px">
-        <a (click)="sendInfo(list.nombre,list.apellido,list.descripcion,list.total)">
+        <a (click)="sendInfo(list.nombre,list.apellido,list.descripcion,list.total,list.idFactura)">
           <img src="assets/img/play.png" alt="Alistar Pedido" width=30>
         </a>
       </td>

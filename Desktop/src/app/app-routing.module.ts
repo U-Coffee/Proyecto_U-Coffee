@@ -17,7 +17,7 @@ const routes: Routes = [
     path : 'arqueo',
     component: ArqueoComponent
   },{
-    path : 'pedido/:name/:lastname/:desc/:total',
+    path : 'pedido/:name/:lastname/:desc/:total/:id',
     component: PedidoComponent
   },{
     path : 'producto',

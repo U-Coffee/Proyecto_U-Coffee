@@ -9,7 +9,8 @@
     align-items: center;
     background-color: #ff8533;
     font-weight: 600;
-    font-size: x-large;
+    font-size: xx-large;
+    
   }
   
   .toolbar img {
@@ -60,7 +61,7 @@
     cursor: pointer;
     background-color: #5260ff;
     color: white;
-    padding: 10px 15px;
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
   }

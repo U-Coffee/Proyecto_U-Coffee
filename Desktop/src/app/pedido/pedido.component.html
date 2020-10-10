@@ -1,1 +1,22 @@
-<p>pedido works!</p>
+<div class="content" role="main">
+    <br>
+    <div class="content_">
+        <h1><b>Cliente:</b> {{varName}} {{varLastname}}</h1>
+        <br>
+        <div class="description">
+            <h2><p> <b>Factura N°: </b> {{varId}} </p></h2>
+            <table class="table table-striped">
+                <tr>
+                  <th>Productos</th>
+                </tr>
+                <tr *ngFor = "let data of arrayDesc">
+                    <td> {{data}} </td>
+                </tr>
+              </table>
+              <h2>Total: <br> <br> $ {{varTotal | number}} </h2>
+        </div>
+    </div>
+    <br>
+    <button class="confirm" expand="block" (click) = "orderOk(varId)"><h2>Pedido listo!!</h2></button>
+    <br>
+</div>

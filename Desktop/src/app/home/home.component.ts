@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  sendInfo(name: string, lastname: string, description: string, total:number){
-    this.router.navigate(['/pedido',name,lastname,description,total]);
+  sendInfo(name: string, lastname: string, description: string, total:number,id: number){
+    this.router.navigate(['/pedido',name,lastname,description,total,id]);
   }
 
   ngOnInit() {
