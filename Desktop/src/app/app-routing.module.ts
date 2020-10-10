@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { ArqueoComponent } from './arqueo/arqueo.component';
 import { HomeComponent } from './home/home.component';
+import { OrdenOkComponent } from './orden-ok/orden-ok.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { ProductoComponent } from './producto/producto.component';
 
@@ -22,7 +23,10 @@ const routes: Routes = [
   },{
     path : 'producto',
     component: ProductoComponent
-  },
+  },{
+    path : 'orden-ok',
+    component: OrdenOkComponent
+  }
 ];
 
 @NgModule({

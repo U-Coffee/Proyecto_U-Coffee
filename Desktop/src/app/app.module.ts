@@ -8,7 +8,8 @@ import { ArqueoComponent } from './arqueo/arqueo.component';
 import { ProductoComponent } from './producto/producto.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrdenOkComponent } from './orden-ok/orden-ok.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     HomeComponent,
     ArqueoComponent,
     ProductoComponent,
-    PedidoComponent
+    PedidoComponent,
+    OrdenOkComponent
   ],
   imports: [
     BrowserModule,

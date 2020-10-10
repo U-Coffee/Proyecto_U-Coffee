@@ -18,13 +18,26 @@ export class HomeComponent implements OnInit {
   varData: any = ""
   arrayDesc = []
 
+  hideDiv(noInfo:boolean,content:boolean){
+    document.getElementById("no-info").hidden = noInfo;
+    document.getElementById("content").hidden = content;
+  }
+
   logInfo(){
     const datosDB = {
-      "table": "factura"
+      "table": "factura",
+      "pedido": "0"
     }
     this.http.post('http://localhost/u-coffee/cafeteria.php',JSON.stringify(datosDB)).subscribe(data =>{
       console.log(data)
       this.varData = data
+
+      if(this.varData == 0){
+        this.hideDiv(false,true);
+      } else {
+        this.hideDiv(true,false);
+      }
+
     })
   }
 

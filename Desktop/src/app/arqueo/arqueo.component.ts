@@ -9,7 +9,9 @@ export class ArqueoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  totalDay : any = localStorage.getItem("dayTotal")
+
+  ngOnInit() {
   }
 
 }

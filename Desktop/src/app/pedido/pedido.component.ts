@@ -26,7 +26,8 @@ export class PedidoComponent implements OnInit {
   orderOk(idFactura){
     
     const datosDB = {
-      "pedido" : idFactura
+      "pedido" : idFactura,
+      "dato": "1"
     };
 
     this.http.post('http://localhost/u-coffee/update_factura.php',JSON.stringify(datosDB))
@@ -35,10 +36,6 @@ export class PedidoComponent implements OnInit {
         
         console.log(data)
         this.router.navigate(["/home"]);
-
-        let dayTotal_ : any = localStorage.getItem("dayTotal");
-        let addTotal : any = dayTotal_ - (-this.varTotal);
-        localStorage.setItem('dayTotal',addTotal);
 
         
       } else {

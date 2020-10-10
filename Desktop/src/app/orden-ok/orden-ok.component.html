@@ -1,6 +1,4 @@
-<div class="content" id="content" role="main" hidden>
-
-  <br><h1>Pedidos sin alistar</h1>
+<div class="content" role="main" hidden id="content">
 
   <table class="table table-striped">
     <tr>
@@ -8,7 +6,7 @@
       <th>Cliente</th>
       <th>Descripción</th>
       <th>Total</th>
-      <th>Alistar pedido</th>
+      <th>Pedido entregado</th>
     </tr>
     <tr *ngFor="let list of varData">
       <td width="150px"> {{list.idFactura}} </td>
@@ -16,13 +14,12 @@
       <td> {{list.descripcion}} </td>
       <td> $ {{list.total | number}} </td>
       <td width="150px">
-        <a (click)="sendInfo(list.nombre,list.apellido,list.descripcion,list.total,list.idFactura)">
-          <img src="assets/img/play.png" alt="Alistar Pedido" width=30>
+        <a (click)="giveOrder(list.idFactura,list.total)">
+          <img src="assets/img/play.png" alt="entregar" width=30>
         </a>
       </td>
     </tr>
   </table>
-
 </div>
 
 <div class="no-info" id="no-info" hidden>

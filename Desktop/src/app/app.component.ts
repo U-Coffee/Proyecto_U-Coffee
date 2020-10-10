@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   
   openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("mySidebar").style.width = "350px";
+    document.getElementById("main").style.marginLeft = "350px";
     console.log("menu abierto")
   }
   
