@@ -52,7 +52,7 @@ export class Tab1Page implements OnInit {
 
     const datosDB = {
       "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
-      "enviado": "1"
+      "enviado": "2"
     };
     this.http.post('https://localhost/u-coffee/historial.php', //valida que tenga pedidos realizados 
       JSON.stringify(datosDB)).subscribe(async res => {
