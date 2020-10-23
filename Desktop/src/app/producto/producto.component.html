@@ -1,1 +1,28 @@
-<p>producto works!</p>
+<div class="content" id="content" role="main">
+
+  <br>
+  <h1>Productos</h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Imagen</th>
+      <th>ID Producto</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+    <tr *ngFor="let list of info">
+      <td width="50px"> <img src="{{list.img}}" alt="Product Img" width="100px"> </td>
+      <td> {{list.codigo}} </td>
+      <td> {{list.nombre}} </td>
+      <td> $ {{list.valor | number}} </td>
+      <td style="display: flex; align-items: center;">
+        <label>
+          <a (click)="updatePro(list.codigo)">Actualizar</a> <br><br>
+          <a (click)="deletePro(list.codigo)">Eliminar</a>
+        </label>
+      </td>
+    </tr>
+  </table>
+
+</div>

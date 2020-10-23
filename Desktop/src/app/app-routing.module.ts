@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { OrdenOkComponent } from './orden-ok/orden-ok.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { ProductoComponent } from './producto/producto.component';
+import { UpdateProComponent } from './update-pro/update-pro.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,9 @@ const routes: Routes = [
   },{
     path : 'orden-ok',
     component: OrdenOkComponent
+  },{
+    path : 'updatePro/:id',
+    component: UpdateProComponent
   }
 ];
 
