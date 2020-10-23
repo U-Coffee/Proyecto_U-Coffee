@@ -15,7 +15,7 @@
   <ion-card *ngFor="let list of info | searchbar: searchText">
     <ion-list >
       <ion-item>
-        <img src="assets/img/{{list.img}}"> &nbsp;&nbsp;
+        <img src="{{list.img}}"> &nbsp;&nbsp;
         <ion-grid>
           <ion-row class="ion-align-items-center">
             <ion-col> <b>{{list.nombre }}</b></ion-col>
