@@ -1,1 +1,50 @@
-<p>update-pro works!</p>
+<div class="content" id="content" role="main">
+
+  <br>
+  <h1>Actualizar productos</h1>
+
+  <div class="content_" *ngFor="let info of infoPro">
+    <h3>
+      <b> Información del producto</b>
+    </h3> <br>
+    <table>
+      <tr>
+        <td rowspan="2" width="50%"><img src="{{info.img}}" alt="Imagen del producto" width="80%"
+            style="border-radius: 10px;"></td>
+        <td>
+          <h4> {{info.nombre}} </h4>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><label id="valor">Valor: $ {{info.valor | number}} </label></strong></td>
+      </tr>
+    </table>
+  </div>
+  <div class="ChangeInfo">
+    <br><br>
+    <ngb-alert id="error" type="warning">
+      Ingresa solo la información que desee cambiar
+    </ngb-alert>
+    <form (ngSubmit)="updateName()">
+      <p>
+        Nombre del Producto:<input type="text" name="proNombre" [(ngModel)]="proNombre"> <br>
+      </p>
+        <button type="submit">Cambiar Nombre</button>
+    </form>
+    <hr>
+    <form (ngSubmit)="updatePrice()">
+      <p>
+        Valor del Producto:<input type="number" name="proValor" [(ngModel)]="proValor"><br>
+      </p>
+        <button type="submit">Cambiar Precio</button> 
+    </form>
+    <hr>
+    <form (ngSubmit)="updateImg()">
+      <p>
+        Imagen del Producto (url):<input type="text" name="proImg" [(ngModel)]="proImg"> <br>
+      </p>
+        <button type="submit">Cambiar Imagen</button>
+    </form>
+  </div>
+  <br>
+</div>

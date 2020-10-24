@@ -1,0 +1,52 @@
+.content {
+  display: flex;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  max-width: 1000px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ff8533;
+  font-size: large;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+input{
+  float:right;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  border: none;
+  border-bottom: 2px solid #5260ff;
+  width: 250px;
+}
+
+button{
+  border: 1px solid white;
+  border-radius: 3px;
+  background-color: #5260ff;
+  color:white;
+  transition-duration: 0.3s;
+  margin-left: 50%;
+  margin-bottom: 5px;
+}
+
+button:hover{
+  background-color: white;
+  color:#5260ff;
+}
+
+.content_{
+  padding: 15px;
+  width: 450px;
+
+}
+
+.ChangeInfo{
+  width: 500px;
+}

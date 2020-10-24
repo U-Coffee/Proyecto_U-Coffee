@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrdenOkComponent } from './orden-ok/orden-ok.component';
 import { UpdateProComponent } from './update-pro/update-pro.component'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UpdateProComponent } from './update-pro/update-pro.component'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,51 @@
+<ng-template #content let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Datos administrador</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Ingrese los datos del administrador para eliminar este producto:
+    <br> <br>
+    <table>
+      <tr>
+        <td rowspan="2" width="30%"><img src="{{imgPro}}" alt="Imagen del producto" width="100%"></td>
+        <td>
+          <h4> {{nombrePro}} </h4>
+        </td>
+      </tr>
+      <tr>
+        <td><strong><label id="valor">Valor: $ {{valorPro | number}} </label></strong></td>
+      </tr>
+    </table>
+    <form (ngSubmit)="deletePro()">
+      <br>
+      <p>Usuario:
+        <input type="text" [(ngModel)]="adminUser" name="adminUser">
+      </p>
+      <p>
+        Contraseña:
+        <input type="password" [(ngModel)]="adminPass" name="adminPass">
+      </p><br>
+      <ngb-alert id="error" (close)="cerrar('error')">
+        <b>Contraseño</b> y/o <b>Usuario</b> incorrectas
+      </ngb-alert>
+      <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
+      <button class="delete" type="submit">Borrar producto</button>
+    </form>
+
+  </div>
+
+
+</ng-template>
+
 <div class="content" id="content" role="main">
+  
+  <ngb-alert id="ok" (close)="cerrar('ok')">
+    {{nombrePro}} eliminado Correctamente
+  </ngb-alert>
 
   <br>
   <h1>Productos</h1>
@@ -19,7 +66,7 @@
       <td style="display: flex; align-items: center;">
         <label>
           <a (click)="updatePro(list.codigo)">Actualizar</a> <br><br>
-          <a (click)="deletePro(list.codigo)">Eliminar</a>
+          <a (click)="openModal(list.codigo,list.nombre,list.valor,list.img,content)">Eliminar</a>
         </label>
       </td>
     </tr>
