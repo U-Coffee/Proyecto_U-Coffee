@@ -26,6 +26,10 @@ table{
   transform: translateY(-50%);
 }
 
+a{
+  cursor: pointer;
+}
+
 
 @media screen and (max-width: 575px) {
   svg#rocket-smoke {

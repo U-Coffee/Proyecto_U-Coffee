@@ -29,7 +29,7 @@ input{
 button{
   border: 1px solid white;
   border-radius: 3px;
-  background-color: #5260ff;
+  background-color: #ff8533;
   color:white;
   transition-duration: 0.3s;
   margin-left: 50%;
@@ -38,7 +38,7 @@ button{
 
 button:hover{
   background-color: white;
-  color:#5260ff;
+  color:#ff8533;
 }
 
 .content_{

@@ -1,0 +1,17 @@
+<div class="content" id="log-in">
+    <img src="assets/img/largoAzul.jpeg" width="400px" class="logo"> <br>
+
+    <ngb-alert id="ok" (close)="cerrar('ok')">
+        {{alertMessage}}
+    </ngb-alert>
+
+    <br>
+
+    <form (ngSubmit)="logIn()">
+        <input placeholder="    Usuario" [(ngModel)]="user" name="user">
+        <br> <br>
+        <input placeholder="    Contraseña" [(ngModel)]="contra" type="password" name="contra">
+        <br><br>
+        <button type="submit" color="secondary" id="ingreso">Ingresar</button>
+    </form>
+</div>

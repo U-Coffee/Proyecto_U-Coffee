@@ -52,12 +52,12 @@ export class OrdenOkComponent implements OnInit {
       if(data == 1){
         
         console.log(data)
+        location.reload()
         this.router.navigate(["/home"]);
 
         let varTotal : any = localStorage.getItem("dayTotal");
         let addTotal : any = total - (-varTotal);
         localStorage.setItem('dayTotal',addTotal);
-
         
       } else {
         console.log('Ha ocurrido un error, no se pudo establecer conección con la dase de datos');

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-pro',
@@ -11,7 +12,8 @@ export class UpdateProComponent implements OnInit {
 
   constructor(
     public http: HttpClient,
-    public actRouter: ActivatedRoute
+    public actRouter: ActivatedRoute,
+    public router: Router
   ) { }
 
   idPro: any = "";
@@ -29,6 +31,8 @@ export class UpdateProComponent implements OnInit {
     };
     this.http.post('http://localhost/u-coffee/update_pro.php',JSON.stringify(datosDB)).subscribe(res =>{
       console.log(res)
+
+      this.router.navigate(['/producto'])
     })
   }
 

@@ -1,16 +1,32 @@
 <div class="toolbar" role="banner">
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a><br><br>
-        <a href="#" (click)="closeNav()">Pedidos pendientes</a>
-        <a routerLink="/orden-ok" (click)="closeNav()">Pedidos sin recoger</a> 
-        <a routerLink="/arqueo" (click)="closeNav()">Arqueo de caja</a> 
-        <a routerLink = "/producto" (click)="closeNav()">Menejo de productos</a>
+        <a routerLink="/home" (click)="closeNav()">Pedidos pendientes</a>
+        <a routerLink="/orden-ok" (click)="closeNav()">Pedidos sin recoger</a>
+        <a (click)="openModal(content)">Arqueo de caja</a>
+        <a routerLink="/producto" (click)="closeNav()">Menejo de productos</a>
     </div>
-      
+
     <div id="main">
         <button class="openbtn" (click)="openNav()">&#9776;</button>
-    </div> 
-    <img src="../assets/img/largoNaranja.jpeg" width="195" alt="U-Coffee Logo" >
-  </div>
+    </div>
+    <img src="../assets/img/largoNaranja.jpeg" width="195" alt="U-Coffee Logo">
+</div>
 
+<ng-template #content let-modal>
+
+    <div class="modal-header">
+        Arqueo de caja
+    </div>
+    <div class="modal-body">
+        <br><br>
+        <h1>Vendido en el día</h1>
+        <br>
+        <p> $ {{totalDay | number}} </p>
+
+        <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
+        <button class="delete" (click)="clearArqueo()">Limpiar arqueo</button>
+    </div>
+
+</ng-template>
 <router-outlet></router-outlet>

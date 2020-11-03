@@ -30,7 +30,7 @@
         <input type="password" [(ngModel)]="adminPass" name="adminPass">
       </p><br>
       <ngb-alert id="error" (close)="cerrar('error')">
-        <b>Contraseño</b> y/o <b>Usuario</b> incorrectas
+        {{alertMessage}}
       </ngb-alert>
       <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
       <button class="delete" type="submit">Borrar producto</button>
@@ -41,10 +41,51 @@
 
 </ng-template>
 
+<ng-template #addProduct let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Producto nuevo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Ingrese los datos el <b>Producto Nuevo</b>
+    <br> <br>
+    <form (ngSubmit)="newProduct()">
+      <br>
+      <p>Nombre:
+        <input type="text" [(ngModel)]="newName" name="newName">
+      </p>
+      <p>
+        Precio:
+        <input type="number" [(ngModel)]="newPrice" name="newPrice">
+      </p>
+      <p>
+        Imagen:
+        <input type="text" [(ngModel)]="newImg" name="newImg">
+      </p>
+      <br>
+      <ngb-alert id="error" (close)="cerrar('error')">
+        {{alertMessage}}
+      </ngb-alert>
+      <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
+      <button class="delete" type="submit">Agregar producto</button>
+    </form>
+
+  </div>
+
+
+</ng-template>
+
+<div class="addPro">
+  <a (click)="addPro(addProduct)" class="addButton"> Agregar producto </a>
+</div>
+
 <div class="content" id="content" role="main">
-  
+
   <ngb-alert id="ok" (close)="cerrar('ok')">
-    {{nombrePro}} eliminado Correctamente
+    {{alertMessage}}
   </ngb-alert>
 
   <br>

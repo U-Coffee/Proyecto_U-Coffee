@@ -1,119 +1,135 @@
 .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 1000px;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ff8533;
-    font-size: large;
-    border-radius: 10px;
-  }
-  
-  table{
-    color: white;
-    margin-top: 20px;
-    border-bottom: 1px solid white;
-  }
+  display: flex;
+  margin: auto;
+  padding: 0 16px;
+  max-width: 1000px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ff8533;
+  font-size: large;
+  border-radius: 10px;
+}
 
-  td,th{
-    justify-content: center;
-    text-align: center;
-    vertical-align: middle;
-    align-items: center;
-  }
+.addPro {
+  display: flex;
+  margin: 100px auto 10px;
+  max-width: 1000px;
+  font-size: large;
+}
 
-  a{
-    padding: 7px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition-duration: 0.5s;
-    width: 100px;
-    border: 2px solid white;
-  }
+.addButton {
+  width: auto;
+  margin-left: 80%;
+}
 
-  label{
-    position: relative;
-    top:5px;
-  }
+table {
+  color: white;
+  margin-top: 20px;
+  border-bottom: 1px solid white;
+}
 
-  .delete{
-    background-color: #ff8533;
-    float: right;
-    color:white;
-    border-radius: 3px;
-    border:2px solid white;
-    font-size: large;
-    padding: 2px 20px;
-    transition-duration: 0.3s;
-  }
+td,
+th {
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+}
 
-  .delete:hover{
-    background-color: rgb(255, 80, 80);
-  }
+a {
+  background-color: #ff8533;
+  padding: 7px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  width: 100px;
+  border: 2px solid white;
+  color: white;
+}
 
-  input{
-    float:right;
-    color:white;
-    background-color: rgba(255,255,255,0);
-    border: none;
-    border-bottom: 2px solid #ff8533;
-    width: 60%;
-  }
+label {
+  position: relative;
+  top: 5px;
+}
 
-  .cancel{
-    float: left;
-    color:white;
-    background-color: #5260ff;
-    border-radius: 3px;
-    border: 2px solid white;
-    font-size: large;
-    padding: 2px 20px;
-    transition-duration: 0.3s;
-  }
+.delete {
+  background-color: #ff8533;
+  float: right;
+  color: white;
+  border-radius: 3px;
+  border: 2px solid white;
+  font-size: large;
+  padding: 2px 20px;
+  transition-duration: 0.3s;
+}
 
-  .cancel:hover{
-    color: #ff8533;
-    background-color: white;
-  }
+.delete:hover {
+  background-color: rgb(255, 80, 80);
+}
 
-  img{
-    border-radius: 10px;
-  }
+input {
+  float: right;
+  color: white;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  border-bottom: 2px solid #ff8533;
+  width: 60%;
+}
 
-  a:hover{
-    color: #ff8533 !important;
-    background-color: white;
-  }
+.cancel {
+  float: left;
+  color: white;
+  background-color: #5260ff;
+  border-radius: 3px;
+  border: 2px solid white;
+  font-size: large;
+  padding: 2px 20px;
+  transition-duration: 0.3s;
+}
 
-  .modal-header,.modal-footer{
-    background-color: #ff8533;
-  }
+.cancel:hover {
+  color: #ff8533;
+  background-color: white;
+}
 
-  .modal-body{
-    background-color: #5260ff;
-    padding: 50px;
-    font-size: large;
+img {
+  border-radius: 10px;
+}
 
-  }
+a:hover {
+  color: #ff8533 !important;
+  background-color: white;
+}
 
-  #ok{
-    background-color: #42d77d;
-    color:#12542c;
-    border:none;
-  }
+.modal-header,
+.modal-footer {
+  background-color: #ff8533;
+}
 
-  #error{
-    background-color: #f28c9a;
-    color: #7a1f2b;
-    border: none;
+.modal-body {
+  background-color: #5260ff;
+  padding: 50px;
+  font-size: large;
+
+}
+
+#ok {
+  background-color: #42d77d;
+  color: #12542c;
+  border: none;
+}
+
+#error {
+  background-color: #f28c9a;
+  color: #7a1f2b;
+  border: none;
+}
+
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
   }
-  
-  
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
+}
