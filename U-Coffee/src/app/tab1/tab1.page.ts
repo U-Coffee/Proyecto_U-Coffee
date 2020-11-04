@@ -72,21 +72,21 @@ export class Tab1Page implements OnInit {
       "correo": this.ndoc, // numero de documento
       "contra": this.contra // contraseña
     };
-    this.http.post('http://localhost/u-coffee/ingreso.php', //valida la infomacion con la base de datos
+    this.http.post('http://localhost/u-coffee/index.php', //valida la infomacion con la base de datos
       JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
-        if (res == '1') { //valida que la informacion ingresada coincida con la de la base de datos
+        if (res == '1') {                         //valida que la informacion ingresada coincida con la de la base de datos
           localStorage.setItem("user", this.ndoc) // se guarda la info del usuarioo en el localStorage
           if ((this.varUser != null) || (this.varUser != "")) { // valida que la informacion del usuario no este vacia
-            this.showHystorial() // llama la funcion para mostrar el historial 
+            this.showHystorial()                  // llama la funcion para mostrar el historial 
             console.log(this.varUser);
             location.reload();
-            //this.router.navigate(['/tabs/tab2', this.varUser]); // envia la infoamcion del usuario a la pestaña del menu
-          } else { // si varUser esta vacio muestra la pagina de ingreso
+            
+          } else {                                // si varUser esta vacio muestra la pagina de ingreso
             this.hidden(true, true, false, true, true);
             this.titulo = "Ingreso";
           }
-        } else { // si la informacion ingresada no coincide muestra un alerta 
+        } else {                                  // si la informacion ingresada no coincide muestra un alerta 
           this.alert(
             'Alerta',
             'Error de ingreso',
