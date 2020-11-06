@@ -41,7 +41,7 @@ export class Tab2Page implements OnInit {
     const datosDB = {
       "table": this.table
     };
-    this.http.post('http://localhost/u-coffee/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(async res => {
+    this.http.post('https://u-coffee.000webhostapp.com/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(async res => {
       this.info = res;
       console.log(this.info);
     });

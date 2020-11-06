@@ -1,5 +1,7 @@
 {
   "name": "U-Coffee",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -10,19 +10,11 @@
 </ion-header>
 
 <ion-content color="tertiary">
-  <div class="no-login" id="no-login" hidden>
-    <img src="/assets/img/triste.png">
-    <p>No has iniciado sesión</p>
-    <ion-button (click)="logIn()" color="secondary">Iniciar sesión</ion-button>
-  </div>
-
-  <div class="no-pedido" id="no-pedido" hidden>
-    <img src="/assets/img/check.png">
-    <p>No tienes pedidos pendientes</p>
-  </div>
-
+  
   <div class="no-confirm" id="no-confirm" hidden>
-    <br><br>
+    <br>
+    <ion-title> <b> Pedidos pendientes </b></ion-title>
+    <br>
     <ion-card>
       <ion-grid>
         <ion-row>
@@ -35,7 +27,7 @@
         </ion-row>
       </ion-grid>
     </ion-card>
-    <ion-card *ngFor="let info of varHistorial">
+    <ion-card *ngFor="let info of varPendiente">
       <ion-grid>
         <ion-row>
           <ion-col size="7">
@@ -49,9 +41,50 @@
         </ion-row>
       </ion-grid>
     </ion-card>
-    
-  <br>
-  <img src="assets/img/iconAzul.jpeg" class="logo">
+    <br>
+    <ion-title><b>Pedidos Preparados</b></ion-title>
+    <br>
+    <ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <b> Descripción</b>
+          </ion-col>
+          <ion-col>
+            <b>Total</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card *ngFor="let info of varPreparado">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <div id="des">
+              {{info.descripcion | replaceText}}
+            </div>
+          </ion-col>
+          <ion-col>
+            $ {{info.total | number}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <img src="assets/img/iconAzul.jpeg" class="logo">
   </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="no-login" id="no-login" hidden>
+    <img src="/assets/img/triste.png">
+    <p>No has iniciado sesión</p>
+    <ion-button (click)="logIn()" color="secondary">Iniciar sesión</ion-button>
+  </div>
+
+  <div class="no-pedido" id="no-pedido" hidden>
+    <img src="/assets/img/check.png">
+    <p>No tienes pedidos pendientes</p>
+  </div>
+
 
 </ion-content>

@@ -16,8 +16,11 @@ export class Tab3Page implements OnInit {
     public http: HttpClient
   ) { }
 
-  varHistorial : any
-  varUser: any = localStorage.getItem("user")
+  varPendiente: any
+  varPreparado: any
+  len_pendiente: any ;
+  len_preparado: any ;
+  varUser: any = localStorage.getItem("user");
 
   // funcion para ocultar o mostrar info 
 
@@ -54,6 +57,34 @@ export class Tab3Page implements OnInit {
     await alert.present();
   }
 
+  getInfo(){
+    const datosDB2 = {
+      "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
+      "enviado": "1"
+    };
+    this.http.post('https://u-coffee.000webhostapp.com/historial.php', //valida que tenga pedidos realizados 
+      JSON.stringify(datosDB2)).subscribe(async res => {
+        this.varPreparado = res
+        console.log(this.varPreparado)
+        let len_preparado = this.varPreparado.length;
+        this.len_preparado = len_preparado;
+        console.log(this.len_preparado, "length pendiente");
+      })
+
+    const datosDB1 = {
+      "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
+      "enviado": "0"
+    };
+    this.http.post('https://u-coffee.000webhostapp.com/historial.php', //valida que tenga pedidos realizados 
+      JSON.stringify(datosDB1)).subscribe(async res => {
+        this.varPendiente = res
+        console.log(this.varPendiente)
+        let len_pendiente = this.varPendiente.length;
+        this.len_pendiente = len_pendiente
+        console.log(this.len_pendiente,"len pendiente");
+      });
+  }
+
   //Funcion para ir a la pagina de inicio de sesion
   logIn() {
     this.router.navigate(['/tabs/tab1'])
@@ -67,36 +98,22 @@ export class Tab3Page implements OnInit {
       this.hiddenInfo(false, true, true)
     } else {
 
-      const datosDB = {
-        "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
-        "enviado": "1"
-      };
-      this.http.post('http://localhost/u-coffee/historial.php', //valida que tenga pedidos realizados 
-        JSON.stringify(datosDB)).subscribe(async res => {
-          this.varHistorial = res
-          console.log(this.varHistorial)
+      this.getInfo();
 
-          let lenHistorial =this.varHistorial.length;
-          console.log(lenHistorial,"length")
-
-          if (lenHistorial == 0) { //valida que tengo almenos un pedido realizado
-            this.hiddenInfo(true, false, true); //muestra un mensaje que no ha realizado pedidos
-          } else {
-            this.hiddenInfo(true, true, false); // muestra los pedidos realizados
-          }
-        });
+      if ((this.len_pendiente == 0) && (this.len_preparado == 0)) { //valida que tengo almenos un pedido realizado
+        this.hiddenInfo(true, false, true); //muestra un mensaje que no ha realizado pedidos
+      } else {
+        this.hiddenInfo(true, true, false); // muestra los pedidos realizados
+      }
 
     }
   }
 
-  stringToArray(strDesc){
-    let description = strDesc["descripcion"];
-    console.log(description)
-    let arrayDesc = []
-
-    arrayDesc = description.split(",")
-
-    console.log(arrayDesc)
+  doRefresh(event){
+    setTimeout(() => {
+      this.showNoInfo();
+      event.target.complete();
+    }, 1500);
   }
 
   ngOnInit() {

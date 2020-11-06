@@ -11,23 +11,23 @@
   <ion-card>
     <ion-card-title class="ion-text-center">Resumen del pedido</ion-card-title>
     <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-item *ngFor="let a of arrayCod">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6">
+          <ion-list *ngFor="let a of arrayCod">
             {{a}}
-          </ion-item>
+          </ion-list>
         </ion-col>
-        <ion-col>
-          <ion-item *ngFor="let b of arrayPre">
+        <ion-col size="4" class="ion-text-center">
+          <ion-list *ngFor="let b of arrayPre">
             $ {{b | number}}
-          </ion-item>
+          </ion-list>
         </ion-col>
-        <ion-col>
-          <ion-item *ngFor="let c of arrayCod">
-            <ion-button color="danger" (click)="borrar(c)">
-              <ion-icon name="close-circle" color="light"></ion-icon>
-            </ion-button>
-          </ion-item>
+        <ion-col size="2">
+          <ion-list *ngFor="let c of arrayCod">
+
+            <ion-icon name="close-circle" color="danger" (click)="borrar(c)" ></ion-icon>
+
+          </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>

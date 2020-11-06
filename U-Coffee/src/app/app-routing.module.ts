@@ -5,16 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
+  },{
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
-  },
-  {
-    path: 'ingreso',
-    loadChildren: () => import('./ingreso/ingreso.module').then( m => m.IngresoPageModule)
-  },
-  {
+  },{
     path: 'pedido/:codigo/:precio',
     loadChildren: () => import('./pedido/pedido.module').then( m => m.PedidoPageModule)
   }

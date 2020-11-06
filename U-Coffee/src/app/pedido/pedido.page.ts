@@ -95,13 +95,14 @@ export class PedidoPage implements OnInit {
         "total": this.suma
       };
 
-      this.http.post('http://localhost/u-coffee/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
+      this.http.post('https://u-coffee.000webhostapp.com/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
-          this.alert('¡Éxito!', 'Tu pedido ha sido registrado, espera la notificación y recógelo')
+          this.alert('¡Éxito!', 'Tu pedido ha sido registrado, revisa el estado de tu pedido en la pestaña "Recoge el pedido"')
           this.router.navigate(['/tabs/tab2']);
         } else {
-          this.alert('Alert', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde')
+          this.alert('Alert', 'Ha ocurrido un error, tu pedido no ha sido registrado. Inténtalo más tarde');
+          this.router.navigate(['/tabs/tab2']);
         }
       });
     }
