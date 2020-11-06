@@ -23,28 +23,41 @@ export class LogInComponent implements OnInit {
     alertConf.dismissible = true;
   }
 
-  logIn() {
+  showAlert(message: string) {
+    this.alertMessage = message;
+    document.getElementById('ok').style.display = 'block';
+    setTimeout(() => document.getElementById('ok').style.display = 'none', 3000)
+  }
+
+  validarUser(){
     const datosDB = {
       "user": this.user,
       "contra": this.contra
     };
 
-    this.http.post('http://localhost/u-coffee/ingreso_coffee.php', JSON.stringify(datosDB)).subscribe(async res => {
+    this.http.post('https://u-coffee.000webhostapp.com/ingreso_coffee.php', JSON.stringify(datosDB)).subscribe(async res => {
       console.log(res);
 
       if (res == '1') {
         localStorage.setItem('user', this.user);
         this.router.navigate(["/home"]);
       } else {
-        this.alertMessage = "Usuario y/o Contraseña incorrecto(s)"
-        document.getElementById('ok').style.display = 'block';
-        setTimeout(() => document.getElementById('ok').style.display = 'none', 3000)
+        this.showAlert("Usuario y/o Contraseña incorrecto(s)");
       }
     });
   }
 
-  cerrar(id:any) {
+  logIn() {
+    if ((this.user == "") || (this.contra == "")) {
+      this.showAlert("Debe llenar los campos para ingresar al sistema");
+    } else {
+      this.validarUser()
+    }
 
+  }
+
+  cerrar(id: any) {
+    document.getElementById(id).style.display = 'none';
   }
 
   ngOnInit() {

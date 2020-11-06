@@ -27,7 +27,7 @@ export class OrdenOkComponent implements OnInit {
       "table": "factura",
       "pedido": "1"
     }
-    this.http.post('http://localhost/u-coffee/cafeteria.php',JSON.stringify(datosDB)).subscribe(data =>{
+    this.http.post('https://u-coffee.000webhostapp.com/cafeteria.php',JSON.stringify(datosDB)).subscribe(data =>{
       console.log(data)
       this.varData = data
 
@@ -47,12 +47,11 @@ export class OrdenOkComponent implements OnInit {
       "dato" : "2"
     };
 
-    this.http.post('http://localhost/u-coffee/update_factura.php',JSON.stringify(datosDB))
+    this.http.post('https://u-coffee.000webhostapp.com/update_factura.php',JSON.stringify(datosDB))
     .subscribe(data =>{
       if(data == 1){
-        
-        console.log(data)
-        location.reload()
+        window.location.reload()
+        console.log(data);
         this.router.navigate(["/home"]);
 
         let varTotal : any = localStorage.getItem("dayTotal");

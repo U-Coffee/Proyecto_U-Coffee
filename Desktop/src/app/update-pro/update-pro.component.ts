@@ -29,7 +29,7 @@ export class UpdateProComponent implements OnInit {
       "dato": dato,
       "id": this.idPro
     };
-    this.http.post('http://localhost/u-coffee/update_pro.php',JSON.stringify(datosDB)).subscribe(res =>{
+    this.http.post('https://u-coffee.000webhostapp.com/update_pro.php',JSON.stringify(datosDB)).subscribe(res =>{
       console.log(res)
 
       this.router.navigate(['/producto'])
@@ -41,7 +41,7 @@ export class UpdateProComponent implements OnInit {
       "codigo": this.idPro
     }
 
-    this.http.post('http://localhost/u-coffee/buscar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+    this.http.post('https://u-coffee.000webhostapp.com/buscar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
       console.log(res);
       this.infoPro = res;
     });

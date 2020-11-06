@@ -39,7 +39,7 @@ export class ProductoComponent implements OnInit {
     const datosDB = {
       "table": "product"
     };
-    this.http.post('http://localhost/u-coffee/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+    this.http.post('https://u-coffee.000webhostapp.com/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
 
       this.info = res;
       console.log(this.info);
@@ -77,7 +77,7 @@ export class ProductoComponent implements OnInit {
         "id": this.idPro
       }
 
-      this.http.post('http://localhost/u-coffee/delete_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+      this.http.post('https://u-coffee.000webhostapp.com/delete_pro.php', JSON.stringify(datosDB)).subscribe(res => {
         console.log(res)
         if (res == 1) {
           this.alertMessage = "Producto eliminado correctamente"
@@ -124,7 +124,7 @@ export class ProductoComponent implements OnInit {
         "img": this.newImg
       };
 
-      this.http.post('http://localhost/u-coffee/new_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+      this.http.post('https://u-coffee.000webhostapp.com/new_pro.php', JSON.stringify(datosDB)).subscribe(res => {
         if (res == 1) {
           location.reload();
           this.alertMessage = "Producto agregado correctamente"

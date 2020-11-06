@@ -55,6 +55,12 @@
   cursor: pointer;
 }
 
+.logout{
+  width: 30px;
+  color: white;
+  font-size: x-large;
+}
+
 /* Position and style the close button (top right corner) */
 .sidebar .closebtn {
   position: absolute;

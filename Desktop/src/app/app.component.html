@@ -1,6 +1,10 @@
 <div class="toolbar" role="banner">
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a><br><br>
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a><br>
+        <a (click)="logOut()">
+            <img src="../assets/img/logout.png" alt="Cerrar sesión" class="logout"><label>Cerrar Sesión</label>
+        </a>
+        <br>
         <a routerLink="/home" (click)="closeNav()">Pedidos pendientes</a>
         <a routerLink="/orden-ok" (click)="closeNav()">Pedidos sin recoger</a>
         <a (click)="openModal(content)">Arqueo de caja</a>
@@ -8,7 +12,7 @@
     </div>
 
     <div id="main">
-        <button class="openbtn" (click)="openNav()">&#9776;</button>
+        <button class="openbtn" id="openbtn" (click)="openNav()">&#9776;</button>
     </div>
     <img src="../assets/img/largoNaranja.jpeg" width="195" alt="U-Coffee Logo">
 </div>
