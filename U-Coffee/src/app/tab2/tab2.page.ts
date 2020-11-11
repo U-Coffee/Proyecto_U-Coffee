@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -21,7 +21,8 @@ export class Tab2Page implements OnInit {
   constructor(
     public http: HttpClient,
     public alertCtrl: AlertController,
-    public router: Router
+    public router: Router,
+    public toastCtrl: ToastController
   ) { }
 
   //Funcion de las alertas
@@ -48,17 +49,29 @@ export class Tab2Page implements OnInit {
   }
 
   //generar un array con los productos seleccionados
-  add(codigo: any, precio: any) {
+  async add(nombre: any, precio: any) {
 
-    this.envPre.push(precio);
-    console.log(this.envPre);
-    this.envPro.push(codigo);
+    this.varUser = localStorage.getItem("user");
+    if (this.varUser == null || this.varUser == "") {
+      this.alert("Inicia Sesión", "", "Debes iniciar sesión para porder ralizar un pedido")
+    } else {
+      this.envPre.push(precio);
+      console.log(this.envPre);
+      this.envPro.push(nombre);
+  
+      const toast = await this.toastCtrl.create({
+        message: 'Agregado correctamente => ' + nombre,
+        duration: 2000
+      });
+      toast.present();
+  
+      console.log(this.envPro);
+    }
 
-    console.log(this.envPro);
   }
 
   //Validar que el array del pedido no está vacio
-  infoValidation() {
+  async infoValidation() {
     if (this.envPro.length == 0) {
       this.alert('Alerta', 'No has pedido nada!', 'Porfavor selecciona alguno de nuestros productos para continuar')
     } else {
@@ -109,7 +122,7 @@ export class Tab2Page implements OnInit {
     await alert.present();
   }
 
-  buscar(event){
+  buscar(event) {
     //console.log(event)
     this.searchText = event.detail.value
 
