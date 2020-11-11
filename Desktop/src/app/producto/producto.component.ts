@@ -16,7 +16,8 @@ export class ProductoComponent implements OnInit {
     public modalService: NgbModal,
     public alertConf: NgbAlertConfig
   ) {
-    alertConf.dismissible = true
+    alertConf.dismissible = true,
+    alertConf.type = 'warning'
   }
 
   info: any = "";
@@ -37,7 +38,8 @@ export class ProductoComponent implements OnInit {
 
   getInfo() {
     const datosDB = {
-      "table": "product"
+      "table": "product",
+      "order": "nombre"
     };
     this.http.post('https://u-coffee.000webhostapp.com/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
 
@@ -74,12 +76,15 @@ export class ProductoComponent implements OnInit {
       this.adminUser = "";
 
       const datosDB = {
-        "id": this.idPro
+        "id": this.idPro,
+        "table":"product",
+        "columna": "codigo"
       }
 
       this.http.post('https://u-coffee.000webhostapp.com/delete_pro.php', JSON.stringify(datosDB)).subscribe(res => {
         console.log(res)
         if (res == 1) {
+          //console.log("eliminado");
           this.alertMessage = "Producto eliminado correctamente"
           document.getElementById('ok').style.display = 'block';
           setTimeout(() => document.getElementById('ok').style.display = 'none', 3000);

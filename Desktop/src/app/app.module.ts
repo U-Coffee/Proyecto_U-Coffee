@@ -12,6 +12,7 @@ import { OrdenOkComponent } from './orden-ok/orden-ok.component';
 import { UpdateProComponent } from './update-pro/update-pro.component'
 import { FormsModule } from '@angular/forms';
 import { LogInComponent } from './log-in/log-in.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LogInComponent } from './log-in/log-in.component';
     OrdenOkComponent,
     UpdateProComponent,
     LogInComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,

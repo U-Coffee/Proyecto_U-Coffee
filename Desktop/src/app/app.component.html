@@ -9,10 +9,11 @@
         <a routerLink="/orden-ok" (click)="closeNav()">Pedidos sin recoger</a>
         <a (click)="openModal(content)">Arqueo de caja</a>
         <a routerLink="/producto" (click)="closeNav()">Menejo de productos</a>
+        <a (click)="openModal(coffeeUsers)">Manejo de usuarios</a>
     </div>
 
     <div id="main">
-        <button class="openbtn" id="openbtn" (click)="openNav()">&#9776;</button>
+        <button class="openbtn" id="openbtn" (click)="openNav(log_In)">&#9776;</button>
     </div>
     <img src="../assets/img/largoNaranja.jpeg" width="195" alt="U-Coffee Logo">
 </div>
@@ -26,11 +27,85 @@
         <br><br>
         <h1>Vendido en el día</h1>
         <br>
-        <p> $ {{totalDay | number}} </p>
+        <p class="arqueoP"> $ {{totalDay | number}} </p>
 
         <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
         <button class="delete" (click)="clearArqueo()">Limpiar arqueo</button>
     </div>
+
+</ng-template>
+
+<ng-template #log_In let-modal>
+
+    <div class="modal-header">
+        Inicia sesión
+    </div>
+    <div class="modal-body">
+        <br>
+        <h1>Acceso denegado</h1>
+        <br>
+        <p>Debes inciar sesión como trabajador de la cafetería para acceder a estas funciones</p>
+
+        <button class="delete" (click)="modal.close()">Aceptar</button>
+    </div>
+
+</ng-template>
+
+<ng-template #coffeeUsers let-modal>
+
+    <div class="modal-header">
+        Manejo de usuarios
+    </div>
+    <div class="modal-body">
+        
+        <div ngbDropdown class="d-inline-block">
+            <button class="dropDown" id="dropdownBasic1" ngbDropdownToggle (click)="getUsers()">Seleccione usuario</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngFor ="let info of info">
+                <button ngbDropdownItem (click)="selectUser(info.user,info.name)"> {{info.name}} </button>
+            </div>
+        </div>
+        <br>
+        <ngb-alert id="error" (close)="cerrar()">
+            {{alertMessage}}
+          </ngb-alert>
+        <br>
+        <div class="infoUser" id="infoUser" hidden>
+            <h2>{{user_name}} </h2>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Contraseña</th>
+                </tr>
+                <tr>
+                    <td>{{user_user}} </td>
+                    <td>**********</td>
+                </tr>
+            </table>
+            <br>
+            <p>Ingresa información de administrador para eliminar el usuario</p>
+
+            <form (ngSubmit)="deleteUser()">
+                <p>Usuario:
+                  <input type="text" [(ngModel)]="adminUser" name="adminUser">
+                </p>
+                <p>
+                  Contraseña:
+                  <input type="password" [(ngModel)]="adminPass" name="adminPass">
+                </p><br>
+
+                <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
+                <button class="delete" type="submit">Borrar Usuario</button>
+              </form>
+
+        </div>
+
+        <br><br>
+
+        <button class="delete" (click)="modal.close()">Ok</button>
+    </div>
+
+    
 
 </ng-template>
 <router-outlet></router-outlet>
