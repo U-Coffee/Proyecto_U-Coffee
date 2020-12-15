@@ -30,7 +30,7 @@ export class PedidoComponent implements OnInit {
       "dato": "1"
     };
 
-    this.http.post('https://u-coffee.000webhostapp.com/update_factura.php',JSON.stringify(datosDB))
+    this.http.post('https://u-coffee.000webhostapp.com/php/update_factura.php',JSON.stringify(datosDB))
     .subscribe(data =>{
       if(data == 1){
         

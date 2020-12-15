@@ -11,7 +11,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Tab2Page implements OnInit {
 
-  table = "product";
   info: any;
   envPro = [];
   envPre = [];
@@ -40,9 +39,10 @@ export class Tab2Page implements OnInit {
   //Cargar la informacion de los productos
   async loadInfo() {
     const datosDB = {
-      "table": this.table
+      "table": "product",
+      "order": "nombre"
     };
-    this.http.post('https://u-coffee.000webhostapp.com/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(async res => {
+    this.http.post('https://u-coffee.000webhostapp.com/php/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(async res => {
       this.info = res;
       console.log(this.info);
     });
@@ -60,7 +60,7 @@ export class Tab2Page implements OnInit {
       this.envPro.push(nombre);
   
       const toast = await this.toastCtrl.create({
-        message: 'Agregado correctamente => ' + nombre,
+        message: nombre +' - Agregado correctamente',
         duration: 2000
       });
       toast.present();

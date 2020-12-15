@@ -95,7 +95,7 @@ export class PedidoPage implements OnInit {
         "total": this.suma
       };
 
-      this.http.post('https://u-coffee.000webhostapp.com/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
+      this.http.post('https://u-coffee.000webhostapp.com/php/factura.php', JSON.stringify(datosDB)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
           this.alert('¡Éxito!', 'Tu pedido ha sido registrado, revisa el estado de tu pedido en la pestaña "Recoge el pedido"')

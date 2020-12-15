@@ -1,34 +1,50 @@
-input{
-    width: 500px;
-    margin:auto;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    font-size: x-large;
+input {
+  width: 500px;
+  margin: auto;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  font-size: x-large;
 }
 
-.content{
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+.content {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transform: translateY(-50%);
 }
 
-button{
-    margin-top: 5px;
-    width: 300px;
-    border-radius: 15px;
-    font-size: x-large;
-    border: none;
-    color: white;
-    background-color: #ff8533;
+button {
+  margin-top: 5px;
+  width: 300px;
+  border-radius: 15px;
+  font-size: x-large;
+  border: none;
+  color: white;
+  background-color: #ff8533;
 }
 
 @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
   }
+}
+
+.downloadApk{
+    margin:auto;
+    display: block;
+    margin-top: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: large;
+    max-width: 100%;
+}
+
+.downloadImg{
+    max-width: 50%;
+}
+
+

@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
       "table": "factura",
       "pedido": "0"
     }
-    this.http.post('https://u-coffee.000webhostapp.com/cafeteria.php',JSON.stringify(datosDB)).subscribe(data =>{
+    this.http.post('https://u-coffee.000webhostapp.com/php/cafeteria.php',JSON.stringify(datosDB)).subscribe(data =>{
       console.log(data)
       this.varData = data
 

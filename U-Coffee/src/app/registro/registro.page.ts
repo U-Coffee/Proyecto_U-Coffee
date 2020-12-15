@@ -49,7 +49,7 @@ export class RegistroPage implements OnInit {
       const datosDB_ = {
         "correo": this.correo
       };
-      this.http.post('https://u-coffee.000webhostapp.com/validar.php', JSON.stringify(datosDB_)).subscribe(async res => {
+      this.http.post('https://u-coffee.000webhostapp.com/php/validar.php', JSON.stringify(datosDB_)).subscribe(async res => {
         console.log(res);
         if (res == 1) {
           this.alert('Alerta', 'Ya existe', 'El Correo ' + this.correo + ' ya se encuentra registrado')
@@ -61,7 +61,7 @@ export class RegistroPage implements OnInit {
             "correo": this.correo,
             "contra": this.contra
           };
-          this.http.post('https://u-coffee.000webhostapp.com/registro.php', JSON.stringify(datosDB)).subscribe(async res => {
+          this.http.post('https://u-coffee.000webhostapp.com/php/registro.php', JSON.stringify(datosDB)).subscribe(async res => {
             console.log(res);
             if (res == 1) {
               this.alert('Hecho', '', '¡Registro Exitoso!')

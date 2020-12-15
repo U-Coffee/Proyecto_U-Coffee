@@ -35,7 +35,7 @@ export class LogInComponent implements OnInit {
       "contra": this.contra
     };
 
-    this.http.post('https://u-coffee.000webhostapp.com/ingreso_coffee.php', JSON.stringify(datosDB)).subscribe(async res => {
+    this.http.post('https://u-coffee.000webhostapp.com/php/ingreso_coffee.php', JSON.stringify(datosDB)).subscribe(async res => {
       console.log(res);
 
       if (res == '1') {

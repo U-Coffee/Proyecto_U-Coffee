@@ -6,7 +6,6 @@ import { OrdenOkComponent } from './orden-ok/orden-ok.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { ProductoComponent } from './producto/producto.component';
 import { UpdateProComponent } from './update-pro/update-pro.component';
-import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -31,9 +30,6 @@ const routes: Routes = [
   },{
     path : 'updatePro/:id',
     component: UpdateProComponent
-  },{
-    path : 'users',
-    component: UsersComponent
   }
 ];
 

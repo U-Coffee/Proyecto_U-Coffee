@@ -41,7 +41,7 @@ export class ProductoComponent implements OnInit {
       "table": "product",
       "order": "nombre"
     };
-    this.http.post('https://u-coffee.000webhostapp.com/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+    this.http.post('https://u-coffee.000webhostapp.com/php/mostrar_pro.php', JSON.stringify(datosDB)).subscribe(res => {
 
       this.info = res;
       console.log(this.info);
@@ -81,7 +81,7 @@ export class ProductoComponent implements OnInit {
         "columna": "codigo"
       }
 
-      this.http.post('https://u-coffee.000webhostapp.com/delete_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+      this.http.post('https://u-coffee.000webhostapp.com/php/delete_pro.php', JSON.stringify(datosDB)).subscribe(res => {
         console.log(res)
         if (res == 1) {
           //console.log("eliminado");
@@ -129,7 +129,7 @@ export class ProductoComponent implements OnInit {
         "img": this.newImg
       };
 
-      this.http.post('https://u-coffee.000webhostapp.com/new_pro.php', JSON.stringify(datosDB)).subscribe(res => {
+      this.http.post('https://u-coffee.000webhostapp.com/php/new_pro.php', JSON.stringify(datosDB)).subscribe(res => {
         if (res == 1) {
           location.reload();
           this.alertMessage = "Producto agregado correctamente"

@@ -57,18 +57,60 @@
         Manejo de usuarios
     </div>
     <div class="modal-body">
-        
+
+        <div class="addUser">
+            <button class="dropDown" (click)="showForm()">Agregar usuario</button>
+        </div>
+
         <div ngbDropdown class="d-inline-block">
-            <button class="dropDown" id="dropdownBasic1" ngbDropdownToggle (click)="getUsers()">Seleccione usuario</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngFor ="let info of info">
-                <button ngbDropdownItem (click)="selectUser(info.user,info.name)"> {{info.name}} </button>
+            <button class="dropDown" id="dropdownBasic1" ngbDropdownToggle (click)="getUsers()">Eliminar
+                usuario</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <li *ngFor="let info of info">
+                    <button ngbDropdownItem (click)="selectUser(info.user,info.name)"> {{info.name}} </button>
+                </li>
             </div>
         </div>
+
         <br>
         <ngb-alert id="error" (close)="cerrar()">
             {{alertMessage}}
-          </ngb-alert>
+        </ngb-alert>
         <br>
+
+        <div id="addUser" hidden>
+            <form (ngSubmit)="addUser()">
+
+                <p>Nombre Completo:
+                    <input type="text" [(ngModel)]="userName" name="userName">
+                </p>
+
+                <p>Usuario:
+                    <input type="text" [(ngModel)]="userUser" name="userUser">
+                </p>
+
+                <p>Contraseña:
+                    <input type="password" [(ngModel)]="userPass" name="userPass">
+                </p>
+
+                <p>Confirmar Contraseña:
+                    <input type="password" [(ngModel)]="userConfPass" name="userConfPass">
+                </p>
+                <hr>
+                <p>Ingresa información de administrador para agregar el usuario</p>
+                <p>Usuario:
+                    <input type="text" [(ngModel)]="adminUser" name="adminUser">
+                </p>
+                <p>
+                    Contraseña:
+                    <input type="password" [(ngModel)]="adminPass" name="adminPass">
+                </p><br>
+
+                <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
+                <button class="delete" type="submit">Agregar Usuario</button>
+            </form>
+        </div>
+
         <div class="infoUser" id="infoUser" hidden>
             <h2>{{user_name}} </h2>
 
@@ -87,16 +129,16 @@
 
             <form (ngSubmit)="deleteUser()">
                 <p>Usuario:
-                  <input type="text" [(ngModel)]="adminUser" name="adminUser">
+                    <input type="text" [(ngModel)]="adminUser" name="adminUser">
                 </p>
                 <p>
-                  Contraseña:
-                  <input type="password" [(ngModel)]="adminPass" name="adminPass">
+                    Contraseña:
+                    <input type="password" [(ngModel)]="adminPass" name="adminPass">
                 </p><br>
 
                 <button type="button" class="cancel" (click)="modal.close()">Cancelar</button>
                 <button class="delete" type="submit">Borrar Usuario</button>
-              </form>
+            </form>
 
         </div>
 
@@ -105,7 +147,7 @@
         <button class="delete" (click)="modal.close()">Ok</button>
     </div>
 
-    
+
 
 </ng-template>
 <router-outlet></router-outlet>

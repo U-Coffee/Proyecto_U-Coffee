@@ -62,7 +62,7 @@ export class Tab3Page implements OnInit {
       "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
       "enviado": "1"
     };
-    this.http.post('https://u-coffee.000webhostapp.com/historial.php', //valida que tenga pedidos realizados 
+    this.http.post('https://u-coffee.000webhostapp.com/php/historial.php', //valida que tenga pedidos realizados 
       JSON.stringify(datosDB2)).subscribe(async res => {
         this.varPreparado = res
         console.log(this.varPreparado)
@@ -75,7 +75,7 @@ export class Tab3Page implements OnInit {
       "user": this.varUser, //carga la info del usuario que eseta guardada en el localStorage
       "enviado": "0"
     };
-    this.http.post('https://u-coffee.000webhostapp.com/historial.php', //valida que tenga pedidos realizados 
+    this.http.post('https://u-coffee.000webhostapp.com/php/historial.php', //valida que tenga pedidos realizados 
       JSON.stringify(datosDB1)).subscribe(async res => {
         this.varPendiente = res
         console.log(this.varPendiente)
